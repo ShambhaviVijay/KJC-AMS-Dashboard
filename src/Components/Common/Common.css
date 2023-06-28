@@ -1,0 +1,107 @@
+/* InputBox from https://uiverse.io/mrhyddenn/fluffy-bird-66 */
+
+.form__group {
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+  margin: 0.5rem;
+  /* max-width: 180px; */
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: clamp(1rem, 1.5vh, 2rem);
+  color: #212121;
+  padding: 0.25rem 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 1rem;
+  cursor: text;
+  top: 1.5rem;
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.75rem;
+  color: #9b9b9b;
+  pointer-events: none;
+}
+
+.form__field:focus {
+  padding-bottom: 6px;
+  font-weight: 500;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #116399, #38caef);
+  border-image-slice: 1;
+}
+
+.form__field:focus::placeholder {
+  color: lightgray;
+}
+
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.75rem;
+  color: #38caef;
+  font-weight: 700;
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+/*  */
+/*  */
+/* Text Area */
+.form__textarea {
+  width: 95%;
+  height: 10vh;
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #9b9b9b;
+}
+
+.form__textarea:focus {
+  /* border: 2px solid #38caef; */
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/*  */
+/*  */
+/* Dropdown */
+
+.dropdown {
+  width: 100%;
+  margin: 1rem 0px;
+}
+
+select {
+  font-size: 1rem;
+  border-radius: 1rem;
+  padding: 0.5rem 2rem;
+}
+
+.dropdown__label {
+  margin-right: 1rem;
+}

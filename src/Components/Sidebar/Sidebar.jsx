@@ -21,7 +21,6 @@ function Sidebar() {
           <MdCalendarMonth />
           <p>Events</p>
         </NavLink>
-
         <NavLink to={"/venue"} className="nav-links-common">
           <BsBuildingAdd />
           <p>Venue</p>

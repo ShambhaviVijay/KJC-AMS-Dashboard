@@ -1,0 +1,14 @@
+.header-main-container{
+    height: 8vh;
+    width: 75vw;
+    display: flex;
+    margin: 0px 2.6%;
+    align-items: center;
+    justify-content: left;
+    border-bottom: 2px solid #AAAAAA;
+    padding: 0px 10px;
+}
+
+.header-icon{
+    margin: 5px 8px 0px 0px;
+}
