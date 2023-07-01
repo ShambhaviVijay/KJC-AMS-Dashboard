@@ -12,7 +12,7 @@ function Sidebar() {
 
       {/* nav-links-container */}
       <div className="nav-links-container">
-        <NavLink to="/addevent" className="nav-links-common">
+        <NavLink to="/home" className="nav-links-common">
           <MdHome />
           <p>Home</p>
         </NavLink>

@@ -1,35 +1,40 @@
-import React from 'react';
-import InputBox from '../Common/InputBox'
-import Button from '../Common/Button';
+import React from "react"
+import InputBox from "../Common/InputBox"
+import Button from "../Common/Button"
 import "./PageControls.css"
-import { MdSearch,MdAddCircleOutline } from "react-icons/md";
+import { MdAddCircleOutline } from "react-icons/md"
+import { FaSearch } from "react-icons/fa"
 
 export default function PageControls({
-  inputplaceholder = "Search", 
-  addFunction }) {
+  inputplaceholder = "Search",
+  addFunction = () => {},
+  dropDowns = [],
+}) {
+  const SearchButton = () => <Button text="Search" icon={<FaSearch />} />
+
   return (
     <div className="top-controls-container">
       <div className="left-controls">
-        <InputBox style={{"width":"25vw"}} withButton={false} placeholder={inputplaceholder} buttonIcon={<MdSearch/>} btnText={"Search"} action={(string) => setText(string)} /> {/*click={searchEvent} */}
-        <Button text={"Add"} icon={<MdAddCircleOutline/>} btnClass="add-event-btn" action={() => addFunction}/>
+        <InputBox
+          placeholder={inputplaceholder}
+          Button={SearchButton}
+          style={{ width: "25vw" }}
+        />
+
+        <Button
+          text={"Add"}
+          btnClass="success"
+          action={addFunction} // Fixed your faulty code @Rohan
+          icon={<MdAddCircleOutline style={{ width: "1.5rem", height: "1.5rem" }} />}
+        />
       </div>
+
+      {/* Dropdowns will be placed here */}
       <div className="right-controls">
-        <p>Dropdown </p>
+        {dropDowns.map((DropDown, index) => {
+          return <DropDown key={index} />
+        })}
       </div>
     </div>
   )
 }
-
-// const SearchButton = () => <Button text="Search" icon={<FaSearch />} />
-
-// <Inputbox placeholder="Search Faculty" Button={SearchButton} />
-// <Button
-//   text="Search"
-//   btnClass="success"
-//   icon={<MdAddCircle style={{ height: "1.5rem", width: "1.5rem" }} />}
-// />
-// <Button
-//   text="Search"
-//   btnClass="danger"
-//   icon={<MdDelete style={{ height: "1.5rem", width: "1.5rem" }} />}
-// /> 

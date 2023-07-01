@@ -7,6 +7,7 @@ import Events from "./Components/Events/Events"
 import AllEvents from "./Components/Events/All Events/AllEvents"
 import TodayEvents from "./Components/Events/Today Events/TodayEvents"
 import History from "./Components/Events/All Events/History/History"
+import Home from "./Components/Home/Home"
 import Venue from "./Components/Venue/Venue"
 import Organizer from "./Components/Organizer/Organizer"
 import Faculty from "./Components/Faculty/Faculty"
@@ -23,9 +24,10 @@ function App() {
 
       {/* main-container */}
       <div className="right-main-container">
-        {/* Add event */}
+        {/* Home */}
         <Routes>
-          <Route path="addevent" element={<AddEvent />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/home" element={<Home />}></Route>
         </Routes>
 
         {/* Events Listing */}

@@ -8,8 +8,10 @@ This project is used by the following companies:
 
 - Kristu Jayanti College
 
+## Related Project
+ - https://github.com/mr0weird0guy/KJC-AMS.git
 
-## Pre-requisite: 
+## Pre-requisite
 1. pnpm
 2. Vite
 

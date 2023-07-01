@@ -1,47 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: poppins;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.App {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: left;
-}
-
-.sidebar {
-  height: 100vh;
-  width: 20%;
-}
-
-.right-main-container {
-  height: 100vh;
-  width: 80%;
-}
-
 .card-main-container {
   height: auto;
-  width: 250px;
-  border-radius: 11px;
-  color: #5A5A5A;
+  width: 16rem;
+  color: #5a5a5a;
   overflow: hidden;
-  height: auto;
-  padding-bottom: 20px;
+  border-radius: 0.75rem;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-main-container:hover{
+.card-main-container:hover {
   color: #000;
 }
 .card-main-container .img-container {
@@ -54,9 +20,9 @@ a {
 }
 .card-main-container .img-container img {
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   -o-object-position: center;
-     object-position: center;
+  object-position: center;
   width: 100%;
 }
 .card-main-container .card-info-container {
@@ -72,20 +38,22 @@ a {
   justify-content: space-between;
   padding: 10px 0;
   font-size: 0.9rem;
-  border-bottom: 1px solid #E0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.event-name{
+.event-name {
   font-weight: 600;
   width: 100%;
   text-align: center;
   text-transform: capitalize;
 }
 
-.card-main-container .btn-container {
-  margin: 0px 10px;
-}/*# sourceMappingURL=Card.css.map */
+.card-main-container .btn-container button {
+  padding: 0.25rem 1rem;
+  margin: 1rem;
+}
 
+/* 
 .button-container .button-icon svg {
   margin-right: 1em;
-}
+} */

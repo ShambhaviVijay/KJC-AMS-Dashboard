@@ -1,0 +1,11 @@
+.home-main  {
+    
+}
+
+.events-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 4rem;
+    padding: 2rem 0px;
+}
