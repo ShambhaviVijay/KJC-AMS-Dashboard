@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import '../index.css'
-import { AiOutlineSearch, AiFillDelete } from 'react-icons/ai'
-import Button from '../../Button/Button'
+import { AiFillDelete } from 'react-icons/ai'
+import Button from '../../Common/Button'
 import { updateDocument, readDocuments } from '../../../Controllers/index'
-import Inputbox from "../../Inputbox/Inputbox";
+import InputBox from "../../Common/InputBox";
 import { toast } from 'react-toastify'
 
 function Faculty({ event }) {
@@ -73,7 +73,7 @@ function Faculty({ event }) {
             <div className='input_box'>
                 {/* <input type="text" placeholder='Search' onChange={searchEmployee} /> */}
                 <Button action={() => setaddToggled((e) => !e)} text={addToggled ? 'Disable' : 'Add'} />
-                {/* <Inputbox style={{ width: '35vw' }} action={onSearch} placeholder={'Add Faculty'} withButton={true} btnText={'ADD'} /> */}
+                <InputBox style={{ width: '35vw' }} action={onSearch} placeholder={'Add Faculty'} withButton={true} btnText={'ADD'} />
                 {/* <AiOutlineSearch style={{ fontSize: "20px", position: "relative", top: '12px' }} /> */}
             </div>
             <div className='check_list'>

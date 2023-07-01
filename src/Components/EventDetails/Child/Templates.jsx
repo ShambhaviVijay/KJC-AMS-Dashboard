@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Button from '../../Button/Button'
+import Button from '../../Common/Button'
 import '../index.css'
 import { BsDownload } from 'react-icons/bs'
 import { FaFileUpload } from 'react-icons/fa'

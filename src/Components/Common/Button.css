@@ -1,0 +1,47 @@
+.btn-container {
+    display: flex;
+}
+
+.btn-container button {
+  height: 3rem;
+  width: 8rem;
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  gap: 0.5rem;
+  /* padding: 10px 20px; */
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.1);
+  transition: 100ms color ease-in-out, 100ms background-color ease-in-out;
+}
+
+.btn-container .primary {
+  background-color: #1d4ed8;
+  color: white;
+  border: 2px solid #1d4ed8;
+}
+
+.btn-container .secondary {
+  background: transparent;
+  border: 2px solid #1d4ed8;
+  color: #1d4ed8;
+}
+.btn-container .secondary:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-container .success {
+    color: white;
+    background-color: #388E3C;
+    border: 2px solid #388E3C;
+}
+
+.btn-container .danger {
+    color: white;
+    background-color: #bb2d3b;
+    border: 2px solid #bb2d3b;
+}

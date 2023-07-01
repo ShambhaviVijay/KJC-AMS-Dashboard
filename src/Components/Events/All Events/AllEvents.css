@@ -34,10 +34,9 @@ a {
   padding: 0px 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   -moz-column-gap: 30px;
        column-gap: 30px;
   row-gap: 30px;

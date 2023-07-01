@@ -1,6 +1,4 @@
 import React from 'react'
-import Button from '../../Button/Button'
-import Poster from '../../../public/images/poster.jpg'
 
 function Banner({event}) {
 

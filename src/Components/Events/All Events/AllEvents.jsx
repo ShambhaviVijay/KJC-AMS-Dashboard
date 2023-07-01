@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../Card/Card";
+import Card from "../../Card/EventCard";
 import "./AllEvents.css";
 import { readDocuments , deleteDocument} from '../../../Controllers/index'
 import { toast } from "react-toastify";

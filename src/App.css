@@ -1,9 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   font-family: poppins;
+}
+
+body {
+  background-color: #F7F8FC;
 }
 
 a {
@@ -28,9 +34,10 @@ a {
 .right-main-container {
   height: 100vh;
   width: 80%;
-}/*# sourceMappingURL=App.css.map */
+  padding: 1rem 2rem;
+} /*# sourceMappingURL=App.css.map */
 
-.loader_center_parent{
+.loader_center_parent {
   width: 100%;
   height: 90vh;
   display: flex;
@@ -38,12 +45,12 @@ a {
   align-items: center;
 }
 @keyframes lds-ring {
-0% {
-  transform: rotate(0deg);
-}
-100% {
-  transform: rotate(360deg);
-}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .lds-ring {
@@ -52,7 +59,7 @@ a {
   width: 80px;
   height: 80px;
 }
-.head{
+.head {
   font-size: 25px;
 }
 .lds-ring div {
@@ -66,7 +73,7 @@ a {
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: currentColor transparent transparent transparent;
-  color: #1C1917;
+  color: #1c1917;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -77,11 +84,11 @@ a {
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
-.head label{
+.head label {
   font-size: 15px;
   position: relative;
   top: -5px;
 }
-.customise_job{
+.customise_job {
   display: flex;
 }

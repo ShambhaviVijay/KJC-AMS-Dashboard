@@ -34,20 +34,23 @@ a {
   height: auto;
   width: 250px;
   border-radius: 11px;
+  color: #5A5A5A;
   overflow: hidden;
   height: auto;
   padding-bottom: 20px;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-main-container:hover{
+  color: #000;
 }
 .card-main-container .img-container {
   width: 100%;
   overflow: hidden;
   height: 150px;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  flex-direction: row;
 }
 .card-main-container .img-container img {
   -o-object-fit: cover;
@@ -71,6 +74,18 @@ a {
   font-size: 0.9rem;
   border-bottom: 1px solid #E0e0e0;
 }
+
+.event-name{
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  text-transform: capitalize;
+}
+
 .card-main-container .btn-container {
   margin: 0px 10px;
 }/*# sourceMappingURL=Card.css.map */
+
+.button-container .button-icon svg {
+  margin-right: 1em;
+}

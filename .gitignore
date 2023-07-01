@@ -25,3 +25,7 @@ dist-ssr
 
 # Pnpm
 pnpm-lock.yaml
+
+
+# My Exclusions
+utils/
