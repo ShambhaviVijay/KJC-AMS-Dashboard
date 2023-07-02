@@ -29,19 +29,15 @@
   border: 2px solid #1d4ed8;
   color: #1d4ed8;
 }
-.btn-container .secondary:hover {
-    background-color: #1d4ed8;
-    color: white;
-}
 
 .btn-container .success {
-    color: white;
-    background-color: #388E3C;
-    border: 2px solid #388E3C;
+  color: white;
+  background-color: #388E3C;
+  border: 2px solid #388E3C;
 }
 
 .btn-container .danger {
-    color: white;
-    background-color: #bb2d3b;
-    border: 2px solid #bb2d3b;
+  color: white;
+  background-color: #bb2d3b;
+  border: 2px solid #bb2d3b;
 }

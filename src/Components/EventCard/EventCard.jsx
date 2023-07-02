@@ -1,11 +1,11 @@
 import React from "react"
-import "./Card.css"
-import cardImage from "../../assets/card_img.png"
+import "./EventCard.css"
+import EventDefaultBG from "../../assets/event-default-bg.jpg"
 import Button from "../Common/Button"
 import { useNavigate } from "react-router-dom"
 import { MdEdit } from "react-icons/md"
 
-function EventCard({ data, deleteEvent }) {
+function EventCard({ data }) {
   const navigate = useNavigate()
 
   const convertDate = (startTime) => {
@@ -25,7 +25,7 @@ function EventCard({ data, deleteEvent }) {
     <div className="card-main-container">
       <div className="img-container">
         {data.backDrop === null || data.backDrop === "" ? (
-          <img src={cardImage} alt="Default Card Image" />
+          <img src={EventDefaultBG} alt="Default Card Image" />
         ) : (
           <img src={data.backDrop} alt="test image" />
         )}
@@ -61,7 +61,7 @@ function EventCard({ data, deleteEvent }) {
           btnClass="primary"
           clickHandler={() => navigate(`/event/${data.id}`)}
         />
-        {/* <Button text={"Delete"} style={{width:'max-content',marginLeft:'0%'}} btnClass="primary" action={() => deleteEvent(data.id)}/> */}
+        {/* <Button text={"Delete"} style={{width:'max-content',marginLeft:'0%'}} btnClass="danger" action={() => deleteEvent(data.id)}/> */}
       </div>
     </div>
   )

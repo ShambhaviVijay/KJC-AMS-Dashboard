@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Button from '../../Common/Button'
-import '../index.css'
+import '../ModifyEvent.css'
 import { BsDownload } from 'react-icons/bs'
 import { FaFileUpload } from 'react-icons/fa'
 import { updateDocument, uploadFile, updateDocumentAndSubCollection } from '../../../../src/Controllers/index'

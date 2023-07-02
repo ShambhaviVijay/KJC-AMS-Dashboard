@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import '../index.css'
+import '../ModifyEvent.css'
 import { AiFillDelete } from 'react-icons/ai'
 import Button from '../../Common/Button'
 import { updateDocument, readDocuments } from '../../../Controllers/index'
-import InputBox from "../../Common/InputBox";
+import SearchBar from "../../Common/SearchBar";
 import { toast } from 'react-toastify'
 
 function Faculty({ event }) {

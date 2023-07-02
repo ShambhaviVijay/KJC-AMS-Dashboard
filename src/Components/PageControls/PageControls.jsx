@@ -1,24 +1,25 @@
 import React from "react"
-import InputBox from "../Common/InputBox"
+import SearchBar from "../Common/SearchBar"
 import Button from "../Common/Button"
 import "./PageControls.css"
 import { MdAddCircleOutline } from "react-icons/md"
-import { FaSearch } from "react-icons/fa"
 
 export default function PageControls({
   inputplaceholder = "Search",
   addFunction = () => {},
   dropDowns = [],
+  displayData,
+  searchFunction
 }) {
-  const SearchButton = () => <Button text="Search" icon={<FaSearch />} />
 
   return (
     <div className="top-controls-container">
       <div className="left-controls">
-        <InputBox
+        <SearchBar
           placeholder={inputplaceholder}
-          Button={SearchButton}
-          style={{ width: "25vw" }}
+          inputStyle={{ "width" : "calc(100vw*0.3)" }}
+          info={displayData}
+          setSearchResult={searchFunction}
         />
 
         <Button

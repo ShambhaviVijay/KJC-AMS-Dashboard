@@ -1,3 +1,17 @@
-.faculty-main {
-    /* padding: 1rem 2rem; */
+.main-container{
+    background-color: #F5FCFF;
+    margin: 10px 20px ; 
+    padding: 20px;
+    box-shadow: 0 0 20px 4px #00000010;
+}
+
+.table-container{
+    height: 45rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+ul{
+    margin-left: 10px;
+    margin-right: 10px;
 }

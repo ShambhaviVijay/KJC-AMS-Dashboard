@@ -1,12 +1,17 @@
 import PageHeader from '../PageHeader/PageHeader';
 import {FaGraduationCap} from "react-icons/fa"
+import PageControls from "../PageControls/PageControls"
 import "./Organizer.css"
 
 const Organizer = () => {  
     return (
-      <div className="organizer-main">
+      <>
         <PageHeader title="Organizer" icon={<FaGraduationCap />} />
-      </div>
+        <PageControls inputplaceholder="Search Organizer" />
+        <div className="organizer-main">
+          {/* add content here */}
+        </div>
+      </>
     )
   }
   

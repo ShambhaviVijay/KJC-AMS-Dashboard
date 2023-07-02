@@ -19,7 +19,6 @@ export default function DropDown({
         {options.map((option, index) => (
           <option key={index} value={option.value} style={optStyle}>
             {option.name}
-            {console.log(option)}
           </option>
         ))}
       </select>

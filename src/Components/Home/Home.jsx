@@ -1,9 +1,9 @@
 import PageHeader from "../PageHeader/PageHeader"
 import PageControls from "../PageControls/PageControls"
 import DropDown from "../Common/DropDown"
-import EventCard from "../Card/EventCard"
+// import EventCard from "../EventCard/EventCard"
 import { MdCalendarMonth } from "react-icons/md"
-import EventDefaultBG from "../../assets/event-default-bg.jpg"
+import { Outlet } from "react-router-dom"
 // import usePagination from "../../Hooks/usePagination"
 
 import "./Home.css"
@@ -33,18 +33,18 @@ const Home = () => {
     />
   )
 
-  const allEvents = []
-  for (let i = 1; i <= 8; i++) {
-    allEvents.push(<EventCard data={{
-      backDrop: EventDefaultBG,
-      venue: `M1 Audi`,
-      startTime: "2021-08-20T10:00:00.000Z",
-      eventName: `Event ${i}`,
-      id: `af5597c29467a96523a70787c319f4db${i}`,
-    }} />)
-  }
+  // const allEvents = []
+  // for (let i = 1; i <= 8; i++) {
+  //   allEvents.push(<EventCard data={{
+  //     backDrop: EventDefaultBG,
+  //     venue: `M1 Audi`,
+  //     startTime: "2021-08-20T10:00:00.000Z",
+  //     eventName: `Event ${i}`,
+  //     id: `af5597c29467a96523a70787c319f4db${i}`,
+  //   }} />)
+  // }
 
-  // const [refreshedItems, Pagination] = usePagination(4, allEvents)
+  const [refreshedItems, Pagination] = usePagination(4, allEvents)
 
   return (
     <div className="home-main">
@@ -58,12 +58,12 @@ const Home = () => {
       <div className="events-container">
         {/* Refresh Items */}
         {/* {refreshedItems} */}
-        {allEvents}
+        {/* {allEvents} */}
+        <Outlet />
+
       </div>
 
-      <div className="pagination">
-        {/* <Pagination /> */}
-      </div>
+      <div className="pagination"><Pagination /></div>
     </div>
   )
 }
