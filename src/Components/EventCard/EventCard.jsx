@@ -57,8 +57,7 @@ function EventCard({ data }) {
         <Button
           text={"Modify"}
           icon={<MdEdit />}
-          btnStyle={{ width: "100%"}}
-          btnClass="primary"
+          btnClass="primary btn-event-card"
           clickHandler={() => navigate(`/event/${data.id}`)}
         />
         {/* <Button text={"Delete"} style={{width:'max-content',marginLeft:'0%'}} btnClass="danger" action={() => deleteEvent(data.id)}/> */}

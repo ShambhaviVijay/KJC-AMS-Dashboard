@@ -1,14 +1,43 @@
-import PageHeader from "../PageHeader/PageHeader"
-import PageControls from "../PageControls/PageControls"
+import PageHeader from "../Common/PageHeader"
+import PageControls from "../Common/PageControls"
 import DropDown from "../Common/DropDown"
-// import EventCard from "../EventCard/EventCard"
+import EventCard from "../EventCard/EventCard"
 import { MdCalendarMonth } from "react-icons/md"
-import { Outlet } from "react-router-dom"
-// import usePagination from "../../Hooks/usePagination"
+import ReactPaginate from "react-paginate"
+import { useState, useEffect } from "react"
+import { readDocuments } from "../../Controllers"
 
 import "./Home.css"
+import "./Pagination.css"
+
+// GLOBAL VARIABLES
+const itemsPerPage = 8
 
 const Home = () => {
+  const [allEvents, setAllEvents] = useState([])
+  const searchParam = new URLSearchParams(document.location.search)
+  const searchData = searchParam.get('search')
+
+  let events;
+
+
+  async function getEvents() {
+    const data = await readDocuments("/events")
+    if(searchData){
+      events = data
+      .filter((event) => event.eventName === searchedValue)
+      .map((event) => <EventCard key={event.eventID} data={event} />)
+    } else {
+      events = data.map((event) => <EventCard key={event.eventID} data={event} />)
+    }
+    return events
+  }
+
+  // Fetch Events on page load
+  useEffect(() => {
+    getEvents().then((events) => setAllEvents(events))    
+  }, [])
+
   const sortByDropDown = () => (
     <DropDown
       name="sort-by"
@@ -33,23 +62,27 @@ const Home = () => {
     />
   )
 
-  // const allEvents = []
-  // for (let i = 1; i <= 8; i++) {
-  //   allEvents.push(<EventCard data={{
-  //     backDrop: EventDefaultBG,
-  //     venue: `M1 Audi`,
-  //     startTime: "2021-08-20T10:00:00.000Z",
-  //     eventName: `Event ${i}`,
-  //     id: `af5597c29467a96523a70787c319f4db${i}`,
-  //   }} />)
-  // }
+  const RefreshedItems = ({ currentItems = [] }) => {
+    return <>{currentItems}</>
+  }
 
-  const [refreshedItems, Pagination] = usePagination(4, allEvents)
+  const [itemOffset, setItemOffset] = useState(0)
+  const endOffset = itemOffset + itemsPerPage
+  const currentItems = allEvents.slice(itemOffset, endOffset)
+  const pageCount = Math.ceil(allEvents.length / itemsPerPage)
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % allEvents.length
+    setItemOffset(newOffset)
+  }
 
   return (
     <div className="home-main">
       <PageHeader title="Home" icon={<MdCalendarMonth />} />
       <PageControls
+        setText = {searchData}
+        pageSlug={"home"}
         inputplaceholder="Search Events"
         dropDowns={[sortByDropDown, showDropDown]}
       />
@@ -57,13 +90,20 @@ const Home = () => {
       {/* Events container */}
       <div className="events-container">
         {/* Refresh Items */}
-        {/* {refreshedItems} */}
-        {/* {allEvents} */}
-        <Outlet />
-
+        <RefreshedItems currentItems={currentItems} />
       </div>
 
-      <div className="pagination"><Pagination /></div>
+      <div className="pagination">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+        />
+      </div>
     </div>
   )
 }

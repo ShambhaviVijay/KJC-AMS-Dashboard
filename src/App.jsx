@@ -13,6 +13,7 @@ import Organizer from "./Components/Organizer/Organizer"
 import Faculty from "./Components/Faculty/Faculty"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import PageNotFound from "./Components/Common/PageNotFound"
 
 function App() {
   return (
@@ -26,15 +27,18 @@ function App() {
       <div className="right-main-container">
         {/* Home */}
         <Routes>
-          <Route path="/" element={ <Navigate  to="/home/allevents" /> } />
+          <Route path="/" element={ <Navigate  to="home" /> } />
         </Routes>
+        
         <Routes>
-          <Route path="/home" element={<Home />}>
-            <Route path="allevents" element={<AllEvents />}></Route>
-            <Route path="todayevent" element={<TodayEvents />}></Route>
-            <Route path="past-events" element={<History />}></Route>
-          </Route>
+          <Route path="home" element={<Home />} />
+          <Route path="venue" element={<Venue />}></Route>
+          <Route path="organizer" element={<Organizer />}></Route>
+          <Route path="faculty" element={<Faculty />}></Route>
+          <Route path="event/:id" element={<EventDetails />}></Route>
+          <Route path="*" element={ <PageNotFound/> } />
         </Routes>
+        
 
         {/* Events Listing */}
         {/* <Routes>
@@ -49,22 +53,6 @@ function App() {
           <Route path="venueDeptFaculty" element={<VenueDeptFacl/>}></Route>
         </Routes> */}
 
-        <Routes>
-          <Route path="venue" element={<Venue />}></Route>
-        </Routes>
-
-        <Routes>
-          <Route path="organizer" element={<Organizer />}></Route>
-        </Routes>
-
-        <Routes>
-          <Route path="faculty" element={<Faculty />}></Route>
-        </Routes>
-
-        {/* Event Details */}
-        <Routes>
-          <Route path="event/:id" element={<EventDetails />}></Route>
-        </Routes>
         <Outlet />
       </div>
       <ToastContainer autoClose={1000} />

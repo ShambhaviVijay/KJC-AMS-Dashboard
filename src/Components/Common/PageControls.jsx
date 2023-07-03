@@ -9,13 +9,17 @@ export default function PageControls({
   addFunction = () => {},
   dropDowns = [],
   displayData,
-  searchFunction
+  searchFunction,
+  pageSlug,
+  setSearchText,
 }) {
 
   return (
     <div className="top-controls-container">
       <div className="left-controls">
         <SearchBar
+          pageName={pageSlug}
+          searchedText={setSearchText}
           placeholder={inputplaceholder}
           inputStyle={{ "width" : "calc(100vw*0.3)" }}
           info={displayData}

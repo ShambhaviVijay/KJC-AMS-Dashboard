@@ -3,12 +3,15 @@
   width: 16rem;
   color: #5a5a5a;
   overflow: hidden;
+  cursor: pointer;
   border-radius: 0.75rem;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 250ms;
 }
 
 .card-main-container:hover {
   color: #000;
+  transform: scale(1.02);
 }
 .card-main-container .img-container {
   width: 100%;
@@ -48,12 +51,12 @@
   text-transform: capitalize;
 }
 
+/* Modifying button properties here because editing the button css file does not work */
 .card-main-container .btn-container button {
-  padding: 0.25rem 1rem;
-  margin: 1rem;
+  width: 12rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  margin: 0.75rem 0px;
+  border-radius: 0.3rem;
 }
-
-/* 
-.button-container .button-icon svg {
-  margin-right: 1em;
-} */

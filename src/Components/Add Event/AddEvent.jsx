@@ -5,7 +5,7 @@ import { createDocument, readDocuments, uploadFile } from "../../Controllers/ind
 import { useNavigate } from "react-router-dom"
 import "./AddEvent.scss"
 import { toast } from "react-toastify"
-import PageHeader from "../PageHeader/PageHeader"
+import PageHeader from "../Common/PageHeader"
 
 function AddEvent() {
   const navigate = useNavigate()

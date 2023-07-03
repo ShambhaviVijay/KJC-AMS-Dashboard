@@ -1,16 +1,24 @@
 import "./Venue.css"
-import PageHeader from "../PageHeader/PageHeader"
+import PageHeader from "../Common/PageHeader"
 import { BsBuildingFillAdd } from "react-icons/bs"
-import PageControls from "../PageControls/PageControls"
+import PageControls from "../Common/PageControls"
 import TableCard from '../Common/TableCard';
 import './Venue.css'
 
 const Venue = () => {
+  const searchParam = new URLSearchParams(document.location.search)
+  const searchData = searchParam.get('search')
+  
   return(
     <>
-      <PageHeader title="Venue" icon={<BsBuildingFillAdd />} />
+      <PageHeader
+        title="Venue"
+        icon={<BsBuildingFillAdd />} />
+      <PageControls
+        inputplaceholder="Search Venue" 
+        setSearchText = {searchData}
+        pageSlug={"venue"} />
       <div className='venue-container'>
-      <PageControls inputplaceholder="Search Venue" />
       <div className='venue-table'>
         <ul style={{listStyleType: 'none'}} >
           <li>

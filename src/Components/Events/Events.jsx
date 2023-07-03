@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import "./Events.css"
 import { MdCalendarMonth } from "react-icons/md"
-import PageHeader from "../PageHeader/PageHeader"
-import PageControls from "../PageControls/PageControls"
+import PageHeader from "../Common/PageHeader"
+import PageControls from "../Common/PageControls"
 import { Outlet } from "react-router-dom"
 
 function Events() {

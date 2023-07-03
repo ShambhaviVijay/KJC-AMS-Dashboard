@@ -25,32 +25,16 @@ async function createDocument(name,payload) {
     }
 }
 
-// async function readDocuments(name) {
-//     try {
-//         const querySnapshot = await getDocs(collection(db, name));
-//         const dataArray = [];
-//         querySnapshot.forEach((doc) => {
-//             const data = doc.data();
-//             data.id = doc.id; 
-//             dataArray.push(data);
-//         });
-//         return dataArray;
-//     } catch (error) {
-//         console.error('Error reading documents:', error);
-//         return [];
-//     }
-// }
-
-// async function searchDocuments(collectionName, searchItem, searchData){
-//     try {
-//         const searchQuery = query(collection(db, collectionName), where(searchItem, "==", searchData));
-//         const searchResult = await getDocs(searchQuery)
-//         return searchResult;
-//     } catch (error) {
-//         console.error('Error reading documents:', error);
-//         return [];
-//     }
-// }
+async function searchDocuments(collectionName, searchItem, searchData){
+    try {
+        const searchQuery = query(collection(db, collectionName), where(searchItem, "==", searchData));
+        const searchResult = await getDocs(searchQuery)
+        return searchResult;
+    } catch (error) {
+        console.error('Error reading documents:', error);
+        return [];
+    }
+}
 
 async function readDocuments(name) {
     try {
