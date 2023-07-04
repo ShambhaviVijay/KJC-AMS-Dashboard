@@ -1,3 +1,14 @@
-.venue-main {
-    /* padding: 1rem 2rem; */
+.venue-container{
+    width: 50rem;
+    background-color: #F5FCFF;
+    margin: 10px 20px ; 
+    padding: 20px;
+    box-shadow: 0 0 20px 4px #00000010;
+}
+
+.venue-table{
+    min-height: wrap;
+    max-height: 45rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

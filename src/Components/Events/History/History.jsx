@@ -1,5 +1,5 @@
 import React from 'react'
-import AllEvents from '../AllEvents'
+import AllEvents from '../All Events/AllEvents'
 
 function History() {
   return (

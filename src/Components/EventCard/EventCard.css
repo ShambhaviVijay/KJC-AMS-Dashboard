@@ -1,0 +1,62 @@
+.card-main-container {
+  height: auto;
+  width: 16rem;
+  color: #5a5a5a;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 250ms;
+}
+
+.card-main-container:hover {
+  color: #000;
+  transform: scale(1.02);
+}
+.card-main-container .img-container {
+  width: 100%;
+  overflow: hidden;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.card-main-container .img-container img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+  width: 100%;
+}
+.card-main-container .card-info-container {
+  padding: 0px 10px;
+}
+.card-main-container .card-info-container .info-common {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.event-name {
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Modifying button properties here because editing the button css file does not work */
+.card-main-container .btn-container button {
+  width: 12rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  margin: 0.75rem 0px;
+  border-radius: 0.3rem;
+}

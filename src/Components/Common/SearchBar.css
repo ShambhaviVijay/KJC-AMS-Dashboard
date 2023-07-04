@@ -8,10 +8,8 @@
 .inputbox button {
   width: 8rem;
   height: 3rem;
-  /* // Using auto margins to hackishly set the position of the button inside the inputbox */
-  position: absolute;
+  position: relative;
   margin-left: -8rem;
-  margin-top: -1.5rem;
   border-radius: 0.5rem;
 }
 

@@ -6,7 +6,7 @@ import Templates from './Child/Templates'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-function EventDetails() {
+function ModifyEvent() {
     const [event, setEvent] = useState(null)
     const { id } = useParams()
     const [Loading, setLoading] = useState(true)
@@ -40,4 +40,4 @@ function EventDetails() {
     else return <div className='loader_center_parent'><div className="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 }
 
-export default EventDetails
+export default ModifyEvent

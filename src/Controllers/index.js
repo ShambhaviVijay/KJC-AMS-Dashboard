@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch, query, where} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -25,15 +25,24 @@ async function createDocument(name,payload) {
     }
 }
 
+async function searchDocuments(collectionName, searchItem, searchData){
+    try {
+        const searchQuery = query(collection(db, collectionName), where(searchItem, "==", searchData));
+        const searchResult = await getDocs(searchQuery)
+        return searchResult;
+    } catch (error) {
+        console.error('Error reading documents:', error);
+        return [];
+    }
+}
+
 async function readDocuments(name) {
     try {
         const querySnapshot = await getDocs(collection(db, name));
-        const dataArray = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            data.id = doc.id; 
-            dataArray.push(data);
-        });
+        const dataArray = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }));
         return dataArray;
     } catch (error) {
         console.error('Error reading documents:', error);
@@ -128,6 +137,7 @@ async function uploadFile(file, path) {
 export {
     createDocument,
     readDocuments,
+    searchDocuments,
     updateDocument,
     deleteDocument,
     uploadFile,
