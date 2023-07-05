@@ -6,6 +6,7 @@ export default function DropDown({
   options = [],
   lblStyle,
   selectStyle,
+  onChangeFuntion = () => {},
   optStyle,
   selectAttrs = [],
 }) {
@@ -15,7 +16,7 @@ export default function DropDown({
         {label}
       </label>
 
-      <select name={name} {...selectAttrs} style={selectStyle}>
+      <select name={name} {...selectAttrs} onChange={(e) => onChangeFuntion(e.target.value)} style={selectStyle}>
         {options.map((option, index) => (
           <option key={index} value={option.value} style={optStyle}>
             {option.name}

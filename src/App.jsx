@@ -32,6 +32,7 @@ function App() {
         
         <Routes>
           <Route path="home" element={<Home />} />
+          <Route path="addNewEvent" element={<AddEvent />} />
           <Route path="venue" element={<Venue />}></Route>
           <Route path="organizer" element={<Organizer />}></Route>
           <Route path="faculty" element={<Faculty />}></Route>

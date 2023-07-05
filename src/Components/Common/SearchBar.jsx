@@ -5,28 +5,23 @@ import "./SearchBar.css"
 export default function SearchBar({
   placeholder,
   inputStyle = {},
-  pageName,
-  searchedText,
+  searchfuntion = () => {},
 }) {
-  const urlpage = "/"+ pageName
 
     return (
-      <form
-        action = {urlpage}
-        method="GET"
-        className="inputbox"
+      <div
+        className="searchbox"
         style={inputStyle}>
         <input
+          onChange={(e) => searchfuntion(e.target.value)}
           type="text"
           name="search"
-          defaultValue={searchedText}
           placeholder={placeholder}
           className={"regular"} />
         <Button
           text="Search"
-          type="submit"
           icon={<FaSearch />}
           />
-      </form>
+      </div>
     )
   }

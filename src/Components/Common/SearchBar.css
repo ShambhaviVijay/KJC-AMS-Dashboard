@@ -1,11 +1,11 @@
-.inputbox {
+.searchbox {
   display: flex;
   align-items: center;
-  width: 24rem;
+  width : calc(100vw*0.3);
 }
 
 
-.inputbox button {
+.searchbox button {
   width: 8rem;
   height: 3rem;
   position: relative;
@@ -13,7 +13,7 @@
   border-radius: 0.5rem;
 }
 
-.inputbox input {
+.searchbox input {
   width: 100%;
   height: 3rem;
   font-size: 1.2rem;
@@ -25,7 +25,7 @@
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
 }
 
-.inputbox input:hover, .inputbox input:focus {
+.searchbox input:hover, .searchbox input:focus {
   outline: 2px solid #AAAAAA;
   box-shadow: none;
 }
