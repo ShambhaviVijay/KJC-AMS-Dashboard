@@ -1,109 +1,99 @@
 import PageHeader from "../Common/PageHeader"
-import PageControls from "../Common/PageControls"
+import PageControlsLeft from "../Common/PageControlsLeft"
 import DropDown from "../Common/DropDown"
 import EventCard from "../EventCard/EventCard"
 import { MdCalendarMonth } from "react-icons/md"
-import ReactPaginate from "react-paginate"
 import { useState, useEffect } from "react"
 import { readDocuments } from "../../Controllers"
+import { useNavigate } from "react-router-dom"
+import PaginatedView from "../Common/PaginatedView"
 
 import "./Home.css"
-import "./Pagination.css"
-
-// GLOBAL VARIABLES
-const itemsPerPage = 8
 
 const Home = () => {
+  const navigator = useNavigate()
   const [allEvents, setAllEvents] = useState([])
-  const searchParam = new URLSearchParams(document.location.search)
-  const searchData = searchParam.get('search')
+  const [query, setQuery] = useState("")
+  const keys = ["eventName", "organizer", "venue"]
 
-  let events;
-
-
-  async function getEvents() {
-    const data = await readDocuments("/events")
-    if(searchData){
-      events = data
-      .filter((event) => event.eventName === searchedValue)
-      .map((event) => <EventCard key={event.eventID} data={event} />)
-    } else {
-      events = data.map((event) => <EventCard key={event.eventID} data={event} />)
-    }
-    return events
-  }
-
-  // Fetch Events on page load
   useEffect(() => {
-    getEvents().then((events) => setAllEvents(events))    
+    // Fetch Events on page load
+    const getEvents = async () => {
+      const data = await readDocuments("/events")
+      setAllEvents(data)
+    }
+    getEvents()
   }, [])
 
-  const sortByDropDown = () => (
-    <DropDown
-      name="sort-by"
-      label="Sort By"
-      options={[
-        { name: "Date", value: "date" },
-        { name: "Name", value: "name" },
-        { name: "Department", value: "department" },
-      ]}
-    />
-  )
+  // @everyone: please do not add allEvents to the useEffect dependency array
+  // This will cause a firebase outage.
 
-  const showDropDown = () => (
-    <DropDown
-      name="show"
-      label="Show"
-      options={[
-        { name: "All", value: "all" },
-        { name: "Upcoming", value: "upcoming" },
-        { name: "Past Events", value: "past-events" },
-      ]}
-    />
-  )
-
-  const RefreshedItems = ({ currentItems = [] }) => {
-    return <>{currentItems}</>
+  const handlesSorting = (sortMethod) => {
+    setSortingValue(sortMethod)
+    events = data
+      .map((event) => <EventCard key={event.eventID} data={event} />)
+      .filter((event) => event.eventName.includes(searchValue))
   }
 
-  const [itemOffset, setItemOffset] = useState(0)
-  const endOffset = itemOffset + itemsPerPage
-  const currentItems = allEvents.slice(itemOffset, endOffset)
-  const pageCount = Math.ceil(allEvents.length / itemsPerPage)
+  const addEventsPage = () => navigator("/addNewEvent")
+  const searchData = (searchData) => setQuery(searchData)
 
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % allEvents.length
-    setItemOffset(newOffset)
+  const search = (eventData) => {
+    return eventData.filter((item) => {
+      return keys.some((key) => {
+        return String(item[key]).toLowerCase().includes(query.toLowerCase())
+      })
+    })
   }
 
   return (
     <div className="home-main">
+      {/* Header */}
       <PageHeader title="Home" icon={<MdCalendarMonth />} />
-      <PageControls
-        setText = {searchData}
-        pageSlug={"home"}
-        inputplaceholder="Search Events"
-        dropDowns={[sortByDropDown, showDropDown]}
-      />
 
-      {/* Events container */}
-      <div className="events-container">
-        {/* Refresh Items */}
-        <RefreshedItems currentItems={currentItems} />
-      </div>
-
-      <div className="pagination">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel=">"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="<"
-          renderOnZeroPageCount={null}
+      {/* Page conTROLLs */}
+      <div className="pageControls">
+        <PageControlsLeft
+          inputplaceholder="Search Events"
+          addFunction={addEventsPage}
+          searchfuntion={searchData}
         />
+
+        {/* Div containing dropdowns */}
+        <div className="right-controls">
+          {/* showDropDown */}
+          <DropDown
+            name="show"
+            label="Show"
+            options={[
+              { name: "All", value: "all" },
+              { name: "Upcoming", value: "upcoming" },
+              { name: "Past Events", value: "past-events" },
+            ]}
+          />
+
+          {/* sortDropDown */}
+          <DropDown
+            onChangeFuntion={handlesSorting}
+            name="sort-by"
+            label="Sort By"
+            options={[
+              { name: "Date", value: "date" },
+              { name: "Start Time", value: "startTime" },
+              { name: "End Time", value: "endTime" },
+            ]}
+          />
+        </div>
       </div>
+      {/* End Page Controls */}
+
+      {/* Wrap data to be displayed within paginated view */}
+      <PaginatedView itemsPerPage={8} itemContainerClassName="events-container">
+        {/* Use search function to return filtered data  */}
+        {search(allEvents).map((event) => (
+          <EventCard key={event.id} data={event} />
+        ))}
+      </PaginatedView>
     </div>
   )
 }

@@ -10,3 +10,12 @@
     gap: 4rem;
     padding: 2rem 0px;
 }
+
+.pageControls .left-controls{
+    float: left;
+}
+
+.pageControls .right-controls{
+    float: right;
+    margin: 3.5px;
+}

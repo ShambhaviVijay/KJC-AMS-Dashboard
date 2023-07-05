@@ -8,7 +8,7 @@
 
 .venue-table{
     min-height: wrap;
-    max-height: 45rem;
+    max-height: 42rem;
     overflow-y: scroll;
     overflow-x: hidden;
 }
