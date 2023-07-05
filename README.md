@@ -41,7 +41,7 @@ Start the server
   pnpm vite
 ```
 
-## Color Reference
+## Color Reference 
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |

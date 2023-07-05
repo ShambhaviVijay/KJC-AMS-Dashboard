@@ -17,7 +17,7 @@ function ModifyEvent() {
 
     const fetchCurrentEvent = async (id) => {
         try {
-            const data = await readSingleDocument('Event', id,'Participants')
+            const data = await readSingleDocument('/events', id,'Participants')
             setEvent(data)
             setLoading(false)
         } catch (err) {

@@ -1,0 +1,19 @@
+/* Tooltip container */
+.tooltip-bygpt {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip-text {
+  text-align: left;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  color: #fff;
+  background-color: #1c1917;
+  top: auto;
+  bottom: -3rem;
+}

@@ -39,6 +39,7 @@ const Venue = () => {
       
       <div className='venue-container'>
         <PageControlsLeft
+          tooltipText={"Search Venue with the help of Venue"}
           inputplaceholder="Search Venue" 
           // addFunction={add}
           searchfuntion={searchData}

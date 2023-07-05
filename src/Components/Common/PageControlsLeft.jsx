@@ -3,19 +3,23 @@ import SearchBar from "./SearchBar"
 import Button from "./Button"
 import "./PageControlsLeft.css"
 import { MdAddCircleOutline } from "react-icons/md"
+import Tooltip from "./Tooltip"
 
 export default function PageControls({
   inputplaceholder = "Search",
   addFunction = () => {},
+  tooltipText,
   searchfuntion = () => {},
 }) {
 
   return (
     <div className="left-controls">
-      <SearchBar
-        placeholder={inputplaceholder}
-        searchfuntion={searchfuntion}
-      />
+      <Tooltip text={tooltipText} >
+        <SearchBar
+          placeholder={inputplaceholder}
+          searchfuntion={searchfuntion}
+        />
+      </Tooltip>
       <Button
         text="Add"
         btnClass="success"

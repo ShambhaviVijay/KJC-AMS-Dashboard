@@ -7,21 +7,15 @@ export default function SearchBar({
   inputStyle = {},
   searchfuntion = () => {},
 }) {
-
-    return (
-      <div
-        className="searchbox"
-        style={inputStyle}>
-        <input
-          onChange={(e) => searchfuntion(e.target.value)}
-          type="text"
-          name="search"
-          placeholder={placeholder}
-          className={"regular"} />
-        <Button
-          text="Search"
-          icon={<FaSearch />}
-          />
-      </div>
-    )
-  }
+  return (
+    <div className="searchbox" style={inputStyle}>
+      <input
+        onChange={(e) => searchfuntion(e.target.value)}
+        type="text"
+        name="search"
+        placeholder={placeholder}
+      />
+      <Button text="Search" icon={<FaSearch />} />
+    </div>
+  )
+}

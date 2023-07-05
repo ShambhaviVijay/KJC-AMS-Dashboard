@@ -1,5 +1,7 @@
 .paginated-view {
   min-height: 75vh;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination {

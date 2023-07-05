@@ -7,6 +7,7 @@ import { useState, useEffect } from "react"
 import { readDocuments } from "../../Controllers"
 import { useNavigate } from "react-router-dom"
 import PaginatedView from "../Common/PaginatedView"
+import { sortFilter } from "../../utils"
 
 import "./Home.css"
 
@@ -15,6 +16,20 @@ const Home = () => {
   const [allEvents, setAllEvents] = useState([])
   const [query, setQuery] = useState("")
   const keys = ["eventName", "organizer", "venue"]
+
+  const sortByOpts = [
+    { name: "Name", value: "name" },
+    { name: "Start Time", value: "startTime" },
+    { name: "End Time", value: "endTime" },
+  ]
+  const [sortBy, setSortBy] = useState(sortByOpts[0].value)
+
+  // Change function to be called when sort-by dropdown is changed
+  const handleSortByChange = (e, Array = allEvents) => {
+    setSortBy(e.target.value)
+    const sortResults = sortFilter(Array, sortBy)
+    return sortResults
+  }
 
   useEffect(() => {
     // Fetch Events on page load
@@ -28,22 +43,19 @@ const Home = () => {
   // @everyone: please do not add allEvents to the useEffect dependency array
   // This will cause a firebase outage.
 
-  const handlesSorting = (sortMethod) => {
-    setSortingValue(sortMethod)
-    events = data
-      .map((event) => <EventCard key={event.eventID} data={event} />)
-      .filter((event) => event.eventName.includes(searchValue))
-  }
-
   const addEventsPage = () => navigator("/addNewEvent")
   const searchData = (searchData) => setQuery(searchData)
 
   const search = (eventData) => {
-    return eventData.filter((item) => {
+    // Search for a particular string in the array
+    const searchResults = eventData.filter((item) => {
       return keys.some((key) => {
         return String(item[key]).toLowerCase().includes(query.toLowerCase())
       })
     })
+    // Filter the array by a sort-by method
+    const sortedResults = sortFilter(searchResults, sortBy)
+    return sortedResults
   }
 
   return (
@@ -54,6 +66,7 @@ const Home = () => {
       {/* Page conTROLLs */}
       <div className="pageControls">
         <PageControlsLeft
+          tooltipText={"Search Events with the help of Event Name, Venue and Organizer"}
           inputplaceholder="Search Events"
           addFunction={addEventsPage}
           searchfuntion={searchData}
@@ -74,14 +87,10 @@ const Home = () => {
 
           {/* sortDropDown */}
           <DropDown
-            onChangeFuntion={handlesSorting}
             name="sort-by"
             label="Sort By"
-            options={[
-              { name: "Date", value: "date" },
-              { name: "Start Time", value: "startTime" },
-              { name: "End Time", value: "endTime" },
-            ]}
+            options={sortByOpts}
+            changeHandler={handleSortByChange}
           />
         </div>
       </div>

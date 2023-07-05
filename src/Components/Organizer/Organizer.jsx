@@ -23,6 +23,7 @@ const Organizer = () => {
         title="Organizer"
         icon={<FaGraduationCap />} />
       <PageControlsLeft
+        tooltipText={"Search Organizer with the help of Organizer"}
         inputplaceholder="Search Organizer"
         searchfuntion={searchData}
       />

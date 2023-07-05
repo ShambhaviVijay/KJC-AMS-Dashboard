@@ -6,8 +6,9 @@
 .events-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 4rem;
+    justify-content: space-evenly;
+    row-gap: clamp(2rem, 2vw, 6rem);
+    column-gap: clamp(2rem, 4vw, 8rem);
     padding: 2rem 0px;
 }
 

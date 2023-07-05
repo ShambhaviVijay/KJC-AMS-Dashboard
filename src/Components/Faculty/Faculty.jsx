@@ -38,7 +38,7 @@ const FacultyPage = () => {
   const search = (facultyData) =>{
     return facultyData.filter((item) => keys.some(key => String(item[key]).toLowerCase().includes(query.toLowerCase())));
   }
-  
+
   return (
     <>
     <PageHeader title="Faculty" icon={<BsFillPersonFill />} />
@@ -47,7 +47,8 @@ const FacultyPage = () => {
       {show && <FacultyModal modalShow={show} closeModel={handleClose} />}
       <div className='table-container'>
         <PageControlsLeft
-          inputplaceholder="Search by name/email/department/club"
+          tooltipText={"Search Faculty with the help of Name, Email, Department and Club"}
+          inputplaceholder="Search by Faculty"
           // addFunction={add}
           searchfuntion={searchData}
         />
