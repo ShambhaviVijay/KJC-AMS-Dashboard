@@ -19,7 +19,7 @@ function TableCard ({
         <div className="card-container" >
                 <div className="flex">
                     {data.map((value) =>
-                        <p  style={{flex:(2), alignItems: "center"}}>{value}</p>
+                        <p  style={{flex:(2), marginBottom:'0rem'}}>{value}</p>
                     )}
                     <Button  
                         clickHandler={handleShow}

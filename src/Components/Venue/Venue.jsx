@@ -51,7 +51,7 @@ const Venue = () => {
                 <TableCard 
                 data={[venue.venue_name]}
                 id ={venue.id}
-                page={'edit venue'} />
+                page={'Edit Venue'} />
               </li>
             )}        
           </ul>

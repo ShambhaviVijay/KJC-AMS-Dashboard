@@ -1,14 +1,15 @@
 /* InputBox from https://uiverse.io/mrhyddenn/fluffy-bird-66 */
 
-.form__group {
+.input__group {
   position: relative;
   /* width: 100%; */
+  /* max-width: 20rem; */
   padding: 1rem 0;
-  margin: 0.5rem;
-  /* max-width: 16rem; */
+  margin: 0.75rem 0;
+  margin-bottom: 0px;
 }
 
-.form__field {
+.input__field {
   width: 100%;
   border: none;
   color: #212121;
@@ -18,45 +19,44 @@
   outline: 0;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, .25);
   transition: border-color 0.2s;
 }
 
-.form__field::placeholder {
-  color: transparent;
+.input__field::placeholder {
+  color: gray;
 }
 
-.form__field:placeholder-shown ~ .form__label {
+.input__field:placeholder-shown ~ .input__label {
   font-size: 1rem;
   cursor: text;
-  top: 1.5rem;
 }
 
-.form__label {
+.input__label {
   position: absolute;
-  top: 0;
+  top: -0.5rem;
   left: 0.5rem;
   display: block;
   transition: 0.2s;
-  font-size: 0.75rem;
-  color: #9b9b9b;
+  font-size: 1rem;
+  color: #000000;
   pointer-events: none;
 }
 
-.form__field:focus {
+.input__field:focus {
   font-weight: 500;
   border-width: 2px;
   border: 2px solid rgba(29, 78, 216, 0.5);
-  padding-bottom: 6px;
+  box-shadow: none;
   /* border-image: linear-gradient(to right, #116399, #38caef); */
   /* border-image-slice: 1; */
 }
 
-.form__field:focus::placeholder {
+.input__field:focus::placeholder {
   color: lightgray;
 }
 
-.form__field:focus ~ .form__label {
+.input__field:focus ~ .input__label {
   position: absolute;
   top: 0;
   display: block;
@@ -67,7 +67,7 @@
 }
 
 /* reset input */
-.form__field:required,
-.form__field:invalid {
+/* .input__field:required,
+.input__field:invalid {
   box-shadow: none;
-}
+} */

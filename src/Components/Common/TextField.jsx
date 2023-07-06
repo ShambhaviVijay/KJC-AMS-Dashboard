@@ -6,26 +6,36 @@ export default function TextField({
   label = "",
   type = "text",
   placeholder = "",
+  inputGroupStyle = {},
   inputStyle = {},
+  isDisabled = false,
+  changeHandler = () => {},
   lblStyle = {},
+  fileType = "",
   inputAttrs = [],
+  isRequired = true,
 }) {
   return (
-    <div className="form__group">
+    <div className="input__group" style={inputGroupStyle}>
+      
+      {/* Label for the input */}
+      <label htmlFor={name} className="input__label" style={lblStyle}>
+        {label}
+      </label>
+
       {/* Actual html input */}
       <input
         type={type}
         name={name}
-        className="form__field"
+        onChange={(e)=>changeHandler(e.target.checked)}
+        className="input__field"
         placeholder={placeholder}
         style={inputStyle}
+        disabled = {isDisabled}
+        accept= {fileType}
+        required = {isRequired}
         {...inputAttrs}
       />
-
-      {/* Label for the input */}
-      <label htmlFor={name} className="form__label" style={lblStyle}>
-        {label}
-      </label>
     </div>
   )
 }

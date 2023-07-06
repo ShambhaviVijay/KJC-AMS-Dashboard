@@ -1,82 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import PageControlsLeft from '../Common/PageControlsLeft';
 import TableCard from '../Common/TableCard';
-import PageHeader from "../Common/PageHeader"
-import { BsFillPersonFill } from "react-icons/bs"
-import { readDocuments } from '../../Controllers/index';
-import './Faculty.css'
-import FacultyModal from "../Modals/DetailsModal";
+import PageHeader from '../Common/PageHeader';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { readDocuments, readSingleDocument } from '../../Controllers/index';
+import './Faculty.css';
+import FacultyModal from '../Modals/DetailsModal';
 
 const FacultyPage = () => {
-
-  const [facultyData, setFacultyData] = useState([])
+  const [facultyData, setFacultyData] = useState([]);
   const [show, setShow] = useState(false);
-  const [query, setQuery] = useState("")
-  const keys = ["facultyName", "facultyEmail", "department", "club"]
+  const [query, setQuery] = useState('');
+  const keys = ['facultyName', 'facultyEmail', 'department', 'club'];
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
   useEffect(() => {
     try {
-        fetchFaculty()
+      fetchFaculty();
     } catch (err) {
-      toast.error('error occured while fetching')
+      toast.error('error occured while fetching');
     }
-  }, [])
+  }, []);
 
   const searchData = (searchData) => {
-    setQuery(searchData)
-  }
+    setQuery(searchData);
+  };
 
   const fetchFaculty = async () => {
-    const faculties = await readDocuments('/faculty')
-    setFacultyData(faculties)
-  }
+    const faculties = await readDocuments('/faculty');
+    setFacultyData(faculties);
+  };
 
-  const search = (facultyData) =>{
-    return facultyData.filter((item) => keys.some(key => String(item[key]).toLowerCase().includes(query.toLowerCase())));
-  }
+  const search = (facultyData) => {
+    return facultyData.filter((item) =>
+      keys.some((key) => String(item[key]).toLowerCase().includes(query.toLowerCase()))
+    );
+  };
 
   return (
     <>
-    <PageHeader title="Faculty" icon={<BsFillPersonFill />} />
-    
-    <div className='main-container'>
-      {show && <FacultyModal modalShow={show} closeModel={handleClose} />}
-      <div className='table-container'>
-        <PageControlsLeft
-          tooltipText={"Search Faculty with the help of Name, Email, Department and Club"}
-          inputplaceholder="Search by Faculty"
-          // addFunction={add}
-          searchfuntion={searchData}
-        />
-        <ul style={{listStyleType: 'none'}} >
-          {search(facultyData).map((faculty) => 
-            <li>
-              <TableCard 
-              data={[faculty.facultyName, faculty.facultyEmail, faculty.department, faculty.club]}
-              id ={faculty.id}
-              page={'edit faculty'} />
-            </li>
-          )}
-        </ul>
+      <PageHeader title="Faculty" icon={<BsFillPersonFill />} />
+
+      <div className="main-container">
+        {show && <FacultyModal modalShow={show} closeModel={handleClose} />}
+        <div className="table-container">
+          <PageControlsLeft
+            tooltipText={'Search Faculty with the help of Name, Email, Department and Club'}
+            inputplaceholder="Search by Faculty"
+            // addFunction={add}
+            searchfuntion={searchData}
+          />
+        </div>
+        {show && (
+          <FacultyModal modalShow={show} closeModel={handleClose} page={'Add Faculty'} refresh={fetchFaculty} />
+        )}
+        <div className="table-container">
+          <ul style={{ listStyleType: 'none' }}>
+            {search(facultyData).map((faculty) => (
+              <li key={faculty.id}>
+                <TableCard data={[faculty.facultyName, faculty.facultyEmail, faculty.club]} id={faculty.id} page={'Edit Faculty'} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
-}
+};
 
 export default FacultyPage;
-
-
-{/* <li>
-              <TableCard 
-              row1={'Abhijaan Ganguly'}
-              row2={'21bcac05@kristujayanti.com'} 
-              row3={'Computer Science(UG)'}
-              row4= {'UBA'}
-              id ={1}
-              editFunction={showFacultyModel} />
-            </li> */}

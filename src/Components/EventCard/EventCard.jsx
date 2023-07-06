@@ -43,8 +43,7 @@ function EventCard({ data }) {
         </div>
 
         <Button
-          text={"Modify"}
-          icon={<MdEdit />}
+          text={"View Event"}
           btnClass="primary btn-event-card"
           clickHandler={() => navigate(`/event/${data.id}`)}
         />

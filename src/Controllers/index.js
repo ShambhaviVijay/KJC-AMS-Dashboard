@@ -81,6 +81,26 @@ async function readSingleDocument(collectionName, documentId, subCollectionName)
     }
 }
 
+const getDocRef = async (collectionName, documentId, subCollectionName, subDocId) => {
+    try {
+      let docRef = doc(db, collectionName, documentId);
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()){
+        if (subCollectionName){
+            const subCollectionRef = collection(docRef, subCollectionName);
+            docRef = doc(subCollectionRef, subDocId);
+        }
+        return docRef
+      }else {
+        console.error(`Document ${documentId} does not exist in ${collectionName} collection`);
+        return null;
+        }
+    } catch (error) {
+        console.error(`Error reading document ${documentId} from ${collectionName} collection:`, error);
+        return null;
+    }
+}
+
 
 async function updateDocument(docId, data , name) {
     try {
@@ -142,5 +162,6 @@ export {
     deleteDocument,
     uploadFile,
     readSingleDocument,
-    updateDocumentAndSubCollection
+    updateDocumentAndSubCollection,
+    getDocRef
 }
