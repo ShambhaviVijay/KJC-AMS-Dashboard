@@ -66,8 +66,26 @@
   transition: 0.2s;
 }
 
+.error-message{
+  font-size: 13px;
+  color: red;
+  padding: 3px;
+  display: none;
+}
+
+.input__field input:invalid{
+  border: 2px solid red;
+}
+
+.input__field:invalid[focused="true"] ~.error-message{
+  display: block;
+}
 /* reset input */
 /* .input__field:required,
 .input__field:invalid {
   box-shadow: none;
 } */
+
+.disabled{
+  color: #5a5a5a;
+}

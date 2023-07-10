@@ -15,7 +15,12 @@
     height: 3rem;
 }
 
-/* .btn-container{
-    justify-content:'flex-end'
+.modal-body .btn-container {
+    /* justify-content: flex-end; */
+    flex-direction: row-reverse;
+    width: max-content;
+}
 
-} */
+.modal.show .modal-dialog {
+    width: max-content;
+}

@@ -1,24 +1,31 @@
-import { useState, useEffect } from 'react';
-import Button from "../Common/Button";
-import {Modal} from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import FacultyForm from './FacultyForm'
 import VenOrgForm from './VenOrgForm'
+import DeleteForm from './DeleteForm';
 
-function DetailsModal({modalShow, closeModel, page, refresh, data = []}) {
-    
+function DetailsModal({modalShow, closeModel, action, page, refresh, data = [], id, idList, departments, clubs}) {
+
+  const customDialogClassName = 'custom-modal-dialog';
+  const openFacultyForm = () => <FacultyForm data={data} action={action} closeModel={closeModel} refresh={refresh} idList={idList} departments={departments} clubs={clubs}/> 
+  const openVenDptOrgForm = () => <VenOrgForm data={data} page={page} action={action} closeModel={closeModel} refresh={refresh} idList={idList} />
+  const openDeleteForm = () => <DeleteForm page={page} closeModel={closeModel} refresh={refresh} deleteId={id} />
+
   return (
     <>
-      <Modal 
-        show={modalShow} 
+      <Modal
+        show={modalShow}
         onHide={closeModel}
         size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered>
+        aria-labelledby="example-custom-modal-styling-title"
+        centered
+        >
         <Modal.Header closeButton>
-          <Modal.Title>{page}</Modal.Title>
+          <Modal.Title>{action + " " + page}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {page.includes("Faculty")?<FacultyForm data={data} action={page.split(" ")[0]} closeModel={closeModel} refresh={refresh} /> :<VenOrgForm /> }
+        {action === 'Delete'?openDeleteForm():
+          (page === 'Faculty'?openFacultyForm() :
+          openVenDptOrgForm())}
         </Modal.Body>
       </Modal>
     </>

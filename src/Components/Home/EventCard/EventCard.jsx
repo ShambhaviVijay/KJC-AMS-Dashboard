@@ -1,9 +1,8 @@
 import "./EventCard.css"
-import EventDefaultBG from "../../assets/event-default-bg.jpg"
-import Button from "../Common/Button"
+import EventDefaultBG from "../../../assets/event-default.png"
+import Button from "../../Common/Button"
 import { useNavigate } from "react-router-dom"
-import { MdEdit } from "react-icons/md"
-import { epochToDate } from "../../utils"
+import { epochToDate } from "../../../utils"
 
 function EventCard({ data }) {
   const navigate = useNavigate()
@@ -27,11 +26,6 @@ function EventCard({ data }) {
           <p>{data.venue}</p>
         </div>
 
-        {/* <div className="info-common time">
-          <p>Organized By</p>
-          <p>{data.organizer}</p>
-        </div> */}
-
         <div className="info-common time">
           <p>Starts At</p>
           <p>{epochToDate(data.startTime)}</p>
@@ -45,11 +39,9 @@ function EventCard({ data }) {
         <Button
           text={"View Event"}
           btnClass="primary btn-event-card"
-          clickHandler={() => navigate(`/event/${data.id}`)}
+          clickHandler={() => navigate(`/event/${data.id}`, { state: data })}
         />
       </div>
-
-      <div className="btn-container"></div>
     </div>
   )
 }

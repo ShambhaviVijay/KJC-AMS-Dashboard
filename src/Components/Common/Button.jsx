@@ -4,13 +4,14 @@ export default function Button({
   type = "button",
   text = "",
   btnClass = "primary",
+  btnContainerClass,
   isDisabled = false,
   btnStyle = {},
   icon = null,
   clickHandler = () => {},
 }) {
   return (
-    <div className="btn-container">
+    <div className={`${btnContainerClass} btn-container`}>
       <button
         type={type}
         disabled={isDisabled}

@@ -1,5 +1,5 @@
 .btn-container {
-    display: flex;
+  display: flex;
 }
 
 .btn-container button {
@@ -41,5 +41,6 @@
 
 .btn-container .disabled {
   background-color: #878787;
+  cursor: not-allowed;
   border: 2px solid #878787;
 }

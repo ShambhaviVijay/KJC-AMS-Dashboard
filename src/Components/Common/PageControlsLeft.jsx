@@ -10,6 +10,9 @@ export default function PageControls({
   addFunction = () => {},
   tooltipText,
   searchfuntion = () => {},
+  addIsDisabled = false,
+  styleSearchBox,
+  valueSearchBox,
 }) {
 
   return (
@@ -18,12 +21,15 @@ export default function PageControls({
         <SearchBar
           placeholder={inputplaceholder}
           searchfuntion={searchfuntion}
+          inputStyle={styleSearchBox}
+          value={valueSearchBox}
         />
       </Tooltip>
       <Button
         text="Add"
         btnClass="success"
         clickHandler = {addFunction}
+        isDisabled={addIsDisabled}
         icon={<MdAddCircleOutline style={{ width: "1.5rem", height: "1.5rem" }} />}
       />
     </div>

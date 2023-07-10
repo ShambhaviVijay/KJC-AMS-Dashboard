@@ -1,12 +1,13 @@
 .home-main  {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
+    padding: 0px !important;   
 }
 
 .events-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     row-gap: clamp(2rem, 2vw, 6rem);
     column-gap: clamp(2rem, 4vw, 8rem);
     padding: 2rem 0px;

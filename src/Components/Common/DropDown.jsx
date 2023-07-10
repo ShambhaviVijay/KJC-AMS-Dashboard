@@ -5,13 +5,15 @@ export default function DropDown({
   label,
   options = [],
   lblStyle,
+  isDisabled = false,
+  selectedValue,
   selectStyle,
   changeHandler = () => {},
   optStyle = {},
   selectAttrs = [],
 }) {
 
-  
+
   return (
     <div className="dropdown">
       <label htmlFor={name} className="dropdown__label" style={lblStyle}>
@@ -20,6 +22,8 @@ export default function DropDown({
 
       <select
         name={name}
+        disabled={isDisabled}
+        defaultValue={selectedValue?selectedValue:"NoSelection"}
         {...selectAttrs}
         onChange={changeHandler}
         style={selectStyle}>
@@ -28,6 +32,7 @@ export default function DropDown({
             {option.name}
           </option>
         ))}
+        <option disabled value="NoSelection"> -- select {name} -- </option>
       </select>
     </div>
   )

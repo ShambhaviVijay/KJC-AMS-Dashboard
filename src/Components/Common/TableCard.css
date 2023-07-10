@@ -19,13 +19,20 @@
 
 .flex{
     display:flex;
-    /* flex-direction: row; */
-    align-items:center;
     flex-wrap: wrap;
-    /* margin: 30px 5px;  */
 }
 
 .btn-container .card-button{
     height: 2.5rem;
     margin: 0px 5px;
+}
+
+p{
+    flex:2;
+    margin-Bottom:0px; 
+    padding-top:8px;
+}
+
+.header{
+    font-size: 20px;
 }

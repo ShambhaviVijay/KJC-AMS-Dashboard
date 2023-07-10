@@ -1,4 +1,3 @@
-import { BsBuildingAdd } from "react-icons/bs"
 import "./PageHeader.css"
 
 export default function PageHeader({ title, icon }) {

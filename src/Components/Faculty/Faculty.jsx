@@ -1,73 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PageControlsLeft from '../Common/PageControlsLeft';
 import TableCard from '../Common/TableCard';
-import PageHeader from '../Common/PageHeader';
-import { BsFillPersonFill } from 'react-icons/bs';
-import { readDocuments, readSingleDocument } from '../../Controllers/index';
-import './Faculty.css';
-import FacultyModal from '../Modals/DetailsModal';
+import { readDocuments } from '../../Controllers/index';
+import './Faculty.css'
+import DetailsModal from "../Modals/DetailsModal";
 
-const FacultyPage = () => {
-  const [facultyData, setFacultyData] = useState([]);
+// import {get} from 'firebase/firestore'
+
+function Faculty ({
+  faculties, 
+  departments, 
+  clubs,
+  fetchFaculties,
+}) {
+  // search functionality 
+  const [query, setQuery] = useState("")
+  const searchData = (searchData) => setQuery(searchData);
+  const keys = ["facultyName", "id", "department", "club"]
+
+  const fetchFaculty = async () => faculties = await readDocuments('/faculty');
+  
+  const search = (facultyData) => facultyData.filter((item) => keys.some(key => String(item[key]).toLowerCase().includes(query.toLowerCase())));
+
+  //show hide for faculty model
   const [show, setShow] = useState(false);
-  const [query, setQuery] = useState('');
-  const keys = ['facultyName', 'facultyEmail', 'department', 'club'];
-
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
-  useEffect(() => {
-    try {
-      fetchFaculty();
-    } catch (err) {
-      toast.error('error occured while fetching');
-    }
-  }, []);
-
-  const searchData = (searchData) => {
-    setQuery(searchData);
-  };
-
-  const fetchFaculty = async () => {
-    const faculties = await readDocuments('/faculty');
-    setFacultyData(faculties);
-  };
-
-  const search = (facultyData) => {
-    return facultyData.filter((item) =>
-      keys.some((key) => String(item[key]).toLowerCase().includes(query.toLowerCase()))
-    );
-  };
+  //faculty Id List for faculty model
+  const idList = faculties.map((faculty) =>(faculty.id.split('@')[0]))
 
   return (
     <>
-      <PageHeader title="Faculty" icon={<BsFillPersonFill />} />
-
-      <div className="main-container">
-        {show && <FacultyModal modalShow={show} closeModel={handleClose} />}
-        <div className="table-container">
-          <PageControlsLeft
-            tooltipText={'Search Faculty with the help of Name, Email, Department and Club'}
-            inputplaceholder="Search by Faculty"
-            // addFunction={add}
-            searchfuntion={searchData}
-          />
-        </div>
-        {show && (
-          <FacultyModal modalShow={show} closeModel={handleClose} page={'Add Faculty'} refresh={fetchFaculty} />
-        )}
-        <div className="table-container">
-          <ul style={{ listStyleType: 'none' }}>
-            {search(facultyData).map((faculty) => (
-              <li key={faculty.id}>
-                <TableCard data={[faculty.facultyName, faculty.facultyEmail, faculty.club]} id={faculty.id} page={'Edit Faculty'} />
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className='main-container'>
+      <PageControlsLeft
+        tooltipText={"Search Faculty with the help of Name, Email, Department and Club"}
+        inputplaceholder="Search by Faculty"
+        addFunction={handleShow}
+        searchfuntion={searchData}
+        addIsDisabled={false}
+      />
+      { show &&
+        <DetailsModal
+          modalShow={show}
+          closeModel={handleClose}
+          action={'Add'}
+          page={'Faculty'}
+          refresh={fetchFaculties}
+          idList={idList}
+          departments={departments}
+          clubs={clubs}
+        />
+      }
+      <div className='table-container'>
+        <ul style={{listStyleType: 'none', padding:'1rem'}} >
+          <li>
+          <TableCard 
+            data={['Name', 'Email', 'Department', 'Club']}
+            />
+            </li>
+          {search(faculties).map((faculty) => 
+            <li key={faculty.id}>
+              <TableCard 
+                data={[faculty.facultyName, faculty.id, faculty.department, faculty.club]}
+                id ={faculty.id}
+                page={'Faculty'} 
+                refresh={fetchFaculties}
+                idList={idList}
+                departments={departments}
+                clubs={clubs}
+              />
+            </li>
+          )}
+        </ul>
       </div>
-    </>
-  );
-};
+    </div>
+  </>
+  )
+}
 
-export default FacultyPage;
+export default Faculty;

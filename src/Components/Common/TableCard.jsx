@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useMemo} from "react";
 import { BiEdit } from "react-icons/bi";
 import Button from "./Button";
 import "./TableCard.css"
@@ -9,37 +9,61 @@ function TableCard ({
     data = [],
     id,
     page,
-}){
+    refresh,
+    idList,
+    departments,
+    clubs,}){
     const [show, setShow] = useState(false);
+    const [action, setAction] = useState("");
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    function handleShow (act) {
+        setShow(true);
+        setAction(act);
+    }
+    // console.log(data)
 
     return (
-        <div className="card-container" >
-                <div className="flex">
+        <div className="card-container" style={{display:'flex'}}>
+                <div style={{flex:4, display:'flex'}}>
                     {data.map((value) =>
-                        <p  style={{flex:(2), marginBottom:'0rem'}}>{value}</p>
+                        id ? 
+                        <p > {value}</p>:
+                        <p className='header'>{value}</p>
                     )}
+                <div style={{flex:1, display:"flex"}}>
+                    {id ? 
                     <Button  
-                        clickHandler={handleShow}
+                        clickHandler={(e) => handleShow('Edit')}
                         btnClass='primary card-button'
                         style={{flex:1,}}
                         icon={ <BiEdit />} 
-                        text={'Edit'} /> 
-
-                    {show && <FacultyModal 
-                        modalShow={show} 
-                        closeModel={handleClose} 
-                        data={data} 
-                        page={page}/>}
-
+                        text={'Edit'} />
+                        :<div style={{flex:1,}}></div>
+                    } 
+                    {id ?
                     <Button  
+                        clickHandler={(e) => handleShow('Delete')}
                         btnClass='danger card-button'
                         style={{flex:1,}}
                         icon={<MdDelete/>} 
-                        text={'Delete'}  /> 
+                        text={'Delete'}  />
+                        :<div style={{flex:1,}}></div>
+                    }
+                        {show && <FacultyModal 
+                        data={data}
+                        modalShow={show} 
+                        closeModel={handleClose}
+                        action={String(action)}
+                        page={page}
+                        refresh={refresh}
+                        id={id}
+                        idList={idList}
+                        departments={departments}
+                        clubs={clubs}/>}
+                        
                 </div>
+            </div> 
         </div>
     );
 }

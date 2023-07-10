@@ -1,0 +1,77 @@
+.formRight{
+width: 50%;
+padding: 1rem;
+float: left;
+display: flex;
+flex-direction: column;
+}
+
+.timeContainer{
+display: flex;
+justify-content: space-between;
+}
+
+.checkbox .input__field{
+margin: 1rem;
+}
+
+.checkbox .input__label{
+position: relative;
+display: inline;
+font-size: 1rem;
+}
+
+.formLeft{
+width: 50%;
+padding: 1rem;
+}
+
+.btn-holder{
+margin: 0px 1rem;
+}
+
+.add-events-outer-container .add-events-main-container {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-wrap: wrap;
+flex-direction: column;
+}
+.add-events-outer-container .add-events-main-container input {
+width: 200px;
+margin: 10px 0;
+}/*# sourceMappingURL=AddEvent.css.map */
+
+.form-container {
+display: flex;
+gap: 1rem;
+}
+
+.event-info {
+width: 33%;
+height: 100%;
+}
+
+.event-info form {
+height: 100%;
+padding-top: 1rem;
+}
+
+.event-time-container {
+display: flex;
+justify-content: space-between;
+}
+
+.faculty-list{
+  height: 79vh;
+}
+
+.update-delete-container{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.update-delete-container .btn-container button {
+  min-width: 12rem;
+}

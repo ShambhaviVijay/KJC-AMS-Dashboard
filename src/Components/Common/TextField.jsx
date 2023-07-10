@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./TextField.css"
 
 // InputBox from: https://uiverse.io/mrhyddenn/fluffy-bird-66
@@ -13,8 +14,17 @@ export default function TextField({
   lblStyle = {},
   fileType = "",
   inputAttrs = [],
+  inputValue = "",
   isRequired = true,
+  value,
+  pattern,
+  errorMessage,
+  minimumValue,
+  maximumValue
 }) {
+
+  const[focused, setfocused] = useState(false)
+  const handleFocus =()=> setfocused(true)
   return (
     <div className="input__group" style={inputGroupStyle}>
       
@@ -25,17 +35,26 @@ export default function TextField({
 
       {/* Actual html input */}
       <input
+        pattern={pattern}
+        value={value}
         type={type}
+        defaultValue={inputValue}
+        defaultChecked={inputValue}
         name={name}
-        onChange={(e)=>changeHandler(e.target.checked)}
-        className="input__field"
-        placeholder={placeholder}
+        min={minimumValue}
+        max={maximumValue}
         style={inputStyle}
+        onChange={changeHandler}
+        className={`input__field${isDisabled? " disabled" :""} `}
+        placeholder={placeholder}
         disabled = {isDisabled}
         accept= {fileType}
         required = {isRequired}
+        onBlur={handleFocus}
+        focused={String(focused)}
         {...inputAttrs}
       />
+      <span className="error-message" >{errorMessage}</span>
     </div>
   )
 }

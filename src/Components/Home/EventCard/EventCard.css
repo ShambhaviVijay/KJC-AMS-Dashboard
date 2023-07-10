@@ -1,11 +1,6 @@
 .card-main-container {
-<<<<<<< HEAD
   height: auto;
   width: 14rem;
-=======
-  height: clamp(20rem, 55vh, 25rem);
-  width: clamp(15rem, 28vh, 22rem);
->>>>>>> origin/main
   color: #5a5a5a;
   overflow: hidden;
   cursor: pointer;

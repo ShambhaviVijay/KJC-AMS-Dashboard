@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch, query, where} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, setDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch, query, where } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -22,6 +22,15 @@ async function createDocument(name,payload) {
         return newDocRef
     } catch (error) {
         console.error('Error creating document:', error);
+    }
+}
+
+async function createDocumentWithCustomId(name, documentId, data) {
+    try {
+      const docRef = doc(db, name, documentId);
+      await setDoc(docRef, data);
+    } catch (error) {
+      console.error("Error adding document:", error);
     }
 }
 
@@ -50,7 +59,7 @@ async function readDocuments(name) {
     }
 }
 
-async function readSingleDocument(collectionName, documentId, subCollectionName) {
+async function readSingleDocument({collectionName, documentId, subCollectionName, subDocumentId}) {
     try {
         const docRef = doc(db, collectionName, documentId);
         const docSnapshot = await getDoc(docRef);
@@ -61,6 +70,10 @@ async function readSingleDocument(collectionName, documentId, subCollectionName)
             if (subCollectionName) {
                 const subCollectionRef = collection(docRef, subCollectionName);
                 const subCollectionSnapshot = await getDocs(subCollectionRef);
+                if(subDocumentId){
+                    const subData = await getDoc(doc(subCollectionSnapshot, subDocumentId))
+                    return subData
+                }
                 const subCollectionDataArray = [];
                 subCollectionSnapshot.forEach((subDoc) => {
                     const subData = subDoc.data();
@@ -102,11 +115,11 @@ const getDocRef = async (collectionName, documentId, subCollectionName, subDocId
 }
 
 
-async function updateDocument(docId, data , name) {
+async function updateDocument(name, docId, data) {
     try {
         const docRef = doc(db, name, docId);
         await updateDoc(docRef, data);
-        return 'Document updated successfully'
+        console.log("Document updated successfully");
     } catch (error) {
         console.error('Error updating document:', error);
     }
@@ -163,5 +176,6 @@ export {
     uploadFile,
     readSingleDocument,
     updateDocumentAndSubCollection,
-    getDocRef
+    getDocRef,
+    createDocumentWithCustomId
 }

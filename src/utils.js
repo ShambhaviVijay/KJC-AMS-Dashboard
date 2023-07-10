@@ -38,3 +38,27 @@ export function sortFilter(array, type) {
     console.log("ERROR: Invalid sort type")
   }
 }
+
+
+export function showFilter(array, type, time) {
+  // Show all Events
+  if (type === "all") {
+    return array;
+  }
+
+  // Show Upcoming only
+  else if (type === "upcoming") {
+    return array.filter((event) => event.endTime >= time);
+  }
+
+  // Show Past-Events only
+  else if (type === "past-events") {
+    // Solution by a famous LLM
+    return array.filter((event) => event.endTime <= time);
+  }
+
+  else {
+    return array;
+    console.log("ERROR: Invalid filter type")
+  }
+}

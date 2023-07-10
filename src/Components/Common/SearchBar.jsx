@@ -6,6 +6,7 @@ export default function SearchBar({
   placeholder,
   inputStyle = {},
   searchfuntion = () => {},
+  value,
 }) {
   return (
     <div className="searchbox" style={inputStyle}>
@@ -14,8 +15,8 @@ export default function SearchBar({
         type="text"
         name="search"
         placeholder={placeholder}
+        value={value}
       />
-      <Button text="Search" icon={<FaSearch />} />
     </div>
   )
 }
