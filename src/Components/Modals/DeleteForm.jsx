@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import Button from "../Common/Button";
-import {Col, Row } from 'react-bootstrap';
-import TextField from '../Common/TextField';
 import { deleteDocument } from '../../Controllers/index';
 
-const DeleteForm = ({page, refresh, closeModel, deleteId,}) => {
+const DeleteForm = ({page, refresh, closeModel, deleteId, deleteFunction = () => {}}) => {
 
     let path;
     switch(page){
@@ -28,7 +25,7 @@ const DeleteForm = ({page, refresh, closeModel, deleteId,}) => {
     const deleteDoc = async () => {
         await deleteDocument(deleteId, path)
         closeModel()
-        refresh()
+        refresh(deleteId,"DeletedData")
     }
 
     return (
@@ -44,7 +41,7 @@ const DeleteForm = ({page, refresh, closeModel, deleteId,}) => {
             />
 
             <Button
-            clickHandler={deleteDoc}
+            clickHandler={deleteFunction != null?deleteFunction:deleteDoc}
             btnClass='primary'
             btnStyle={{margin: '1rem' }}
             text={"Yes"} 

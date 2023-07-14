@@ -2,6 +2,11 @@
   padding: 1rem 2rem;
 }
 
+.add-event-main{
+  overflow-y: scroll;
+  height: 100%;
+}
+
 .add-events-outer-container .add-events-main-container {
   display: flex;
   align-items: center;

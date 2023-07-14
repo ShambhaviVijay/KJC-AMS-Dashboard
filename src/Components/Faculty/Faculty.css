@@ -5,8 +5,15 @@
     box-shadow: 0 0 20px 4px #00000010;
 }
 
+.page-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
 .table-container{
-    height: 42rem;
+    max-height: 70vh;
+    /* height: max-content; */
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -24,3 +31,41 @@
 .modal.show .modal-dialog {
     width: max-content;
 }
+
+ul{
+    list-style-type: none;
+    padding:1rem;
+}
+
+.headers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.css-13cymwt-control{
+    /* margin-top: 0.5rem; */
+    /* height: 3rem;
+    overflow-y: scroll; */
+    min-height: 3rem;
+    height: fit-content;
+    font-size: 1rem;
+    border: none;
+    padding: 2px 0px;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, .2);
+}
+
+.css-13cymwt-control:focus{
+    height: 3rem;
+    font-weight: 500;
+    border-width: 2px;
+    border: 2px solid rgba(29, 78, 216, 0.5);
+    box-shadow: none;
+  }
+
+.css-13cymwt-control:hover{
+    outline: 2px solid #AAAAAA;
+    box-shadow: none;
+}
+
+

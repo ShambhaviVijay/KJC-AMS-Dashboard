@@ -11,28 +11,32 @@ export default function DropDown({
   changeHandler = () => {},
   optStyle = {},
   selectAttrs = [],
+  placeholder,
+  value,
 }) {
 
 
   return (
     <div className="dropdown">
-      <label htmlFor={name} className="dropdown__label" style={lblStyle}>
+      {label && <label htmlFor={name} className="dropdown__label" style={lblStyle}>
         {label}
-      </label>
+      </label>}
 
       <select
+        placeholder={placeholder}
         name={name}
         disabled={isDisabled}
         defaultValue={selectedValue?selectedValue:"NoSelection"}
         {...selectAttrs}
         onChange={changeHandler}
-        style={selectStyle}>
+        style={selectStyle}
+        value={value}>
         {options.map((option, index) => (
           <option key={index} value={option.value} style={optStyle}>
             {option.name}
           </option>
         ))}
-        <option disabled value="NoSelection"> -- select {name} -- </option>
+        <option disabled value="NoSelection"> -- Select {name} -- </option>
       </select>
     </div>
   )

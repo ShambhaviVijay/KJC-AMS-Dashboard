@@ -1,7 +1,7 @@
 import "./App.css"
 import Sidebar from "./Components/Sidebar/Sidebar"
 import { BiCalendarStar } from 'react-icons/bi'
-import { MdCalendarMonth } from 'react-icons/md'
+import { MdCalendarMonth, MdAdminPanelSettings } from 'react-icons/md'
 import { FaGraduationCap } from "react-icons/fa"
 import { BsFillPersonFill } from 'react-icons/bs'
 import PageHeader from "./Components/Common/PageHeader"
@@ -11,6 +11,8 @@ import ViewEvent from "./Components/Home/ViewEvent/ViewEvent"
 import Faculty from "./Components/Faculty/Faculty"
 import Organizer from "./Components/Organizer/Organizer"
 import Venue from "./Components/Venue/Venue"
+import Admins from "./Components/Admins/Admins"
+import Login from "./Components/Login/Login"
 import PageNotFound from "./Components/Common/PageNotFound"
 import { useState, useEffect } from "react"
 import { Routes, Route, Outlet, Navigate } from "react-router-dom"
@@ -26,6 +28,8 @@ function App() {
   const [departments, setDepartments] = useState([])
   const [clubs, setClubs] = useState([])
   const [venues, setVenues] = useState([])
+  const [admins, setAdmins] = useState([])
+  const [superAdmins, setSuperAdmins] = useState([])
 
   useEffect(() => {
     try {
@@ -34,6 +38,8 @@ function App() {
       fetchDepartments()
       fetchClubs()
       fetchVenues()
+      fetchAdmins()
+      fetchSuperAdmins()
       setLoading(false)
     } catch (err) {
       toast.error('error occured while fetching')
@@ -60,6 +66,14 @@ function App() {
     const venues = await readDocuments('/venue')
     setVenues(venues)
   }
+  const fetchAdmins = async () => {
+    const admins = await readDocuments('/admins')
+    setAdmins(admins)
+  }
+  const fetchSuperAdmins = async () => {
+    const superAdmins = await readDocuments('/superAdmins')
+    setSuperAdmins(superAdmins)
+  }
   
   if (!Loading) return (
     <div className="App">
@@ -76,6 +90,7 @@ function App() {
           <Route path="faculty" element={ <PageHeader title="Faculty" icon={ <BsFillPersonFill /> } /> }/>
           <Route path="organizer" element={ <PageHeader title="Organizer"icon={ <FaGraduationCap /> } /> }/>
           <Route path="venue" element={ <PageHeader title="Venue"icon={ <BsFillPersonFill /> } /> }/>
+          <Route path="admins" element={ <PageHeader title="Admins"icon={ <MdAdminPanelSettings /> } /> }/>
           <Route path="*" element={ <PageNotFound /> } />
         </Routes>
       </div>
@@ -86,11 +101,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path="home" element={<Home events={events}/>} fetchEvents={fetchEvents}/>
-          <Route path="addNewEvent" element={<AddEvent events={events} departments={departments} clubs={clubs} venues={venues} falculties={faculties} /> } />
-          <Route path="event/:id" element={<ViewEvent departments={departments} clubs={clubs} venues={venues} falculties={faculties}/> } />
+          <Route path="addNewEvent" element={<AddEvent events={events} departments={departments} clubs={clubs} venues={venues} faculties={faculties} /> } />
+          <Route path="event/:id" element={<ViewEvent departments={departments} clubs={clubs} venues={venues} faculties={faculties}/> } />
           <Route path="faculty" element={<Faculty faculties={faculties} departments={departments} clubs={clubs} fetchFaculties={fetchFaculties}/> } />
-          <Route path="organizer" element={<Organizer departments={departments} clubs={clubs} fetchDepartments={fetchDepartments} fetchClubs={fetchClubs}/> } />
-          <Route path="venue" element={<Venue venues={venues} fetchVenues={fetchVenues} /> } />
+          <Route path="organizer" element={<Organizer departments={departments} clubs={clubs} setDepartments={setDepartments} setClubs={setClubs}/> } />
+          <Route path="venue" element={<Venue venues={venues} setVenues={setVenues} /> } />
+          <Route path="admins" element={<Admins admins={admins} superAdmins={superAdmins} setAdmins={setAdmins} setSuperAdmins={setSuperAdmins}/> } />
+          <Route path="login" element={<Login/> } />
           <Route path="*" element={ <PageNotFound /> } />
         </Routes>
         <Outlet />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from "../Common/Button";
 import TextField from '../Common/TextField';
-import { readDocuments, createDocumentWithCustomId, updateDocument, deleteDocument } from '../../Controllers/index';
+import {createDocumentWithCustomId, updateDocument, deleteDocument } from '../../Controllers/index';
 import Select from 'react-select';
 
 function FacultyForm ({ 
@@ -14,12 +14,13 @@ function FacultyForm ({
   clubs}){
   const path = "faculty";
   const emailDomain='@kristujayanti.com'
-  const emailUid = data[1]?(data[1]).split('@')[0]:null
+  const fetchedClubs = (data[3] && data[3] !== 'None') ? data[3].split(","): []
 
+  const emailUid = data[1]?(data[1]).split('@')[0]:null
   const [name, setName] = useState(data[0]?data[0]:"");
   const [email, setEmail] = useState(data[1]?emailUid:"");
-  const [selectedDpt, setSelectedDpt] = useState(data[2] ? { value: data[2], label: data[2] } : null);
-  const [selectedClub, setSelectedClub] = useState(data[3] ? { value: data[3], label: data[3] } : null);
+  const [selectedDpt, setSelectedDpt] = useState(data[2] ? {value: data[2], label: data[2] } : null);
+  const [selectedClub, setSelectedClub] = useState(fetchedClubs.map((item) => ({ value: item, label: item })));
   const [validationErrors, setValidationErrors] = useState({});
 
   const departmentOptions = departments.map((item) => ({
@@ -44,13 +45,15 @@ function FacultyForm ({
     setSelectedDpt(event);
   };
 
-  const handleClub = (event) => {
-    setSelectedClub(event);
+  const handleClub = (selected) => {
+    setSelectedClub(selected);
   };
 
   const addFaculty = async () => {
     if (validate()) {
-      await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: String(selectedClub.value) });
+      const clubs = selectedClub.map((item) => item.value)
+      console.log(clubs)
+      await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs });
       closeModel();
       refresh();
     }
@@ -58,9 +61,11 @@ function FacultyForm ({
 
   const editFaculty = async () => {
     if (validate()) {
+      const clubs = selectedClub.map((item) => item.value)
+      console.log(clubs)
       if(email != data[1]){
         await deleteDocument(data[1], path)
-        await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: String(selectedClub.value) });
+        await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs});
       }
       else{
         await updateDocument(path, email, { facultyName: name, department: String(selectedDpt.value), club: String(selectedClub.value) });
@@ -92,10 +97,10 @@ function FacultyForm ({
       errors.department = 'Department is required';
     }
 
-    if (!selectedClub) {
-      valid = false;
-      errors.club = 'Club is required';
-    }
+    // if (!selectedClub) {
+    //   valid = false;
+    //   errors.club = 'Club is required';
+    // }
 
     setValidationErrors(errors);
     return valid;
@@ -131,9 +136,9 @@ function FacultyForm ({
             />
             {validationErrors.email && <span style={{fontSize:"13px", color:"red", }} >{validationErrors.email}</span>}
          </div>
-         <div style={{flex:'1'}}>
-            <p style={{textAlign:"left", marginLeft:'1rem', fontSize:'20px'}} >@kristujayanti.com</p>
-         </div>
+          <div style={{flex:'1'}}>
+              <p style={{textAlign:"left", marginLeft:'1rem', fontSize:'20px'}} >@kristujayanti.com</p>
+          </div>
         </div>
 
         <div style={{ display:'flex',marginTop:'12px'}}>
@@ -142,22 +147,31 @@ function FacultyForm ({
               // className="flex-item"
               id="inputDepartment"
               placeholder='Select Department'
-              height='3rem'
               options={departmentOptions}
-              styles={{ borderColor: "red", height: "3rem", flex:1 }}
+              styles={{ flex:1 }}
               defaultValue={selectedDpt}
               onChange={handleDpt}/>
             {validationErrors.department && <span style={{fontSize:"13px", color:"red", }} >{validationErrors.department}</span>}
           </div>
           <div style={{flex:'1', marginLeft:'1rem'}}>
-            <Select
-              // className="flex-item"
+            {/* <Select
               id="inputClub"
+              // className='dropdown'
               placeholder='Select Club'
-              height="3rem"
               options={clubOptions}
-              styles={{ borderColor: validationErrors.club ?"red":"blue", height: "3rem", flex:1 }}
+              styles={{height: "3rem", flex:1 }}
               value={selectedClub}
+              onChange={handleClub}
+            /> */}
+            <Select
+              defaultValue={selectedClub}
+              placeholder='Select Clubs'
+              closeMenuOnSelect={false}
+              isMulti
+              name="colors"
+              options={clubOptions}
+              className="basic-multi-select"
+              classNamePrefix="select"
               onChange={handleClub}
             />
             {validationErrors.club && <span style={{fontSize:"13px", color:"red", }} >{validationErrors.club}</span>}

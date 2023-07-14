@@ -7,8 +7,8 @@ import "./Organizer.css"
 function Organizer({
   departments,
   clubs,
-  fetchDepartments,
-  fetchClubs,
+  setDepartments,
+  setClubs,
 }){
 
   const [queryForDepartment, setQueryForDepartment] = useState("")
@@ -39,21 +39,43 @@ function Organizer({
   const disableAddDpt = searchDepartment(departments).length > 0
   const disableAddClub = searchClub(clubs).length > 0
 
+  const updateDepartments = (oldId, newId) => {
+    if (oldId === "NewData") {
+      setDepartments(department => [...department, {id : newId}])
+    } else if (newId === "DeletedData") {
+      setDepartments(department => department.filter(data => data.id != oldId))
+    } else {
+      setDepartments(department => department.filter(data => data.id != oldId))
+      setDepartments(department => [...department, {id : newId}])
+    }
+  }
+
+  const updateClubs = (oldId, newId) => {
+    if (oldId === "NewData") {
+      setClubs(club => [...club, {id : newId}])
+    } else if (newId === "DeletedData") {
+      setClubs(club => club.filter(data => data.id != oldId))
+    } else {
+      setClubs(club => club.filter(data => data.id != oldId))
+      setClubs(club => [...club, {id : newId}])
+    }
+  }
+
   const departmentIdList = departments.map((department) =>(department.id).toLowerCase())
-  const clubsIdList = departments.map((club) =>(club.id).toLowerCase())
+  const clubsIdList = clubs.map((club) =>(club.id).toLowerCase())
 
   return (
     <>
       <div className="organizers-main-container">
-      { show &&
-        <DetailsModal
-          modalShow={show}
-          closeModel={handleClose}
-          action={'Add'}
-          page={'Department'}
-          refresh={fetchDepartments}
-          idList={departmentIdList}
-        />
+        { show &&
+          <DetailsModal
+            modalShow={show}
+            closeModel={handleClose}
+            action={'Add'}
+            page={page}
+            refresh={page==="Club"?updateClubs:updateDepartments}
+            idList={page==="Club"?clubsIdList:departmentIdList}
+          />
         }
         <div className="departments organizers-container">
           <PageControlsLeft
@@ -65,16 +87,19 @@ function Organizer({
             addFunction={handleShowDpt}
             valueSearchBox={queryForDepartment}
           />
-          
+          <div className='headers'style={{paddingLeft:'1rem', paddingRight:'1rem'}}>
+            <h5 style={{textAlign:'center', width:'12vw'}}>Department</h5>
+            <h5 style={{textAlign:'center', width:'17rem'}}>Actions</h5>
+          </div>
           <div className='organizer-table'>
-            <ul style={{listStyleType: 'none', padding:'1rem'}} >
+            <ul>
               {searchDepartment(departments).map((department) => 
                   <li>
                     <TableCard 
                     data={[department.id]}
                     id ={department.id}
                     page={'Department'}
-                    refresh={fetchDepartments}
+                    refresh={updateDepartments}
                     idList={departmentIdList} />
                   </li>
                 )}
@@ -92,6 +117,10 @@ function Organizer({
             addFunction={handleShowClub}
             valueSearchBox={queryForClub}
           />
+          <div className='headers' style={{paddingLeft:'1rem', paddingRight:'1rem'}}>
+            <h5 style={{textAlign:'center', width:'12vw'}}>Club</h5>
+            <h5 style={{textAlign:'center', width:'17rem'}}>Actions</h5>
+          </div>
           <div className='organizer-table'>
             <ul style={{listStyleType: 'none', padding:'1rem'}} >
               {searchClub(clubs).map((club) => 
@@ -100,7 +129,7 @@ function Organizer({
                     data={[club.id]}
                     id ={club.id}
                     page={'Club'}
-                    refresh={fetchClubs}
+                    refresh={updateClubs}
                     idList={clubsIdList} />
                   </li>
                 )}

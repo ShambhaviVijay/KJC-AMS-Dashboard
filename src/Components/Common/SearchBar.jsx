@@ -16,6 +16,7 @@ export default function SearchBar({
         name="search"
         placeholder={placeholder}
         value={value}
+        autoComplete="off"
       />
     </div>
   )

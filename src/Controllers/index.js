@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, setDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch, query, where } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+// ​​import {GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut} from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDiGHXxdZmxp_XgcZhGK6H4dqtzpzFIXYk",
@@ -15,6 +16,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+// const auth = getAuth(app)
+
+// async function createUser(email, password){
+//     await createUserWithEmailAndPassword(auth, email, password)
+//     .then((userCredential) => {
+//         console.log(userCredential)
+//     })
+//     .catch((error) => {
+//         console.log(error)
+//     })
+// }
+
+// async function loginWithEmailAndPassword(email, password){
+//     return firebase.auth().signInWithEmailAndPassword(email, password);
+//   };
 
 async function createDocument(name,payload) {
     try {
@@ -25,9 +41,21 @@ async function createDocument(name,payload) {
     }
 }
 
-async function createDocumentWithCustomId(name, documentId, data) {
+
+async function createDocuments(collectionName, JSONfile) {
     try {
-      const docRef = doc(db, name, documentId);
+        JSONfile.forEach(async (document)=>{
+            const docref = await addDoc(collection(db, collectionName), document)
+            console.log(docref)
+        })
+    } catch (error) {
+        console.error('Error creating document:', error);
+    }
+} 
+
+async function createDocumentWithCustomId(collectionName, customDocumentId, data) {
+    try {
+      const docRef = doc(db, collectionName, customDocumentId);
       await setDoc(docRef, data);
     } catch (error) {
       console.error("Error adding document:", error);
@@ -115,9 +143,9 @@ const getDocRef = async (collectionName, documentId, subCollectionName, subDocId
 }
 
 
-async function updateDocument(name, docId, data) {
+async function updateDocument(collectionName, docId, data) {
     try {
-        const docRef = doc(db, name, docId);
+        const docRef = doc(db, collectionName, docId);
         await updateDoc(docRef, data);
         console.log("Document updated successfully");
     } catch (error) {
@@ -125,9 +153,9 @@ async function updateDocument(name, docId, data) {
     }
 }
 
-async function updateDocumentAndSubCollection(docId, name, subCollection, subDataArray) {
+async function updateDocumentAndSubCollection(docId, collectionName, subCollection, subDataArray) {
     try {
-        const docRef = doc(db, name, docId);
+        const docRef = doc(db, collectionName, docId);
         const subCollectionRef = collection(docRef, subCollection);
         const subDocsSnapshot = await getDocs(subCollectionRef);
         const batch = writeBatch(db);
@@ -167,15 +195,29 @@ async function uploadFile(file, path) {
     }
   }
 
+async function deleteFile(fileUrl) {
+    try {
+        const fileRef = ref(storage,fileUrl);
+        await deleteObject(fileRef);
+        return 'File deleted successfully'
+    } catch (error) {
+        console.error('Error deleting file:', error);
+    }
+}
+
 export {
     createDocument,
+    createDocuments,
     readDocuments,
     searchDocuments,
     updateDocument,
     deleteDocument,
     uploadFile,
+    deleteFile,
     readSingleDocument,
     updateDocumentAndSubCollection,
     getDocRef,
-    createDocumentWithCustomId
+    createDocumentWithCustomId,
+    // createUser,
+    // loginWithEmailAndPassword
 }

@@ -25,6 +25,7 @@
   transition: 100ms background-color ease-in-out;
   height: 70px;
   cursor: pointer;
+  text-decoration: none;
 }
 .sidebar-outer-container .nav-links-container .nav-links-common:hover {
   background-color: #424242;

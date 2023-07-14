@@ -1,6 +1,6 @@
 import React from "react"
 import "./Sidebar.css"
-import { MdCalendarMonth, MdHome } from "react-icons/md"
+import { MdAdminPanelSettings, MdHome } from "react-icons/md"
 import { BsBuildingAdd, BsFillPersonFill } from "react-icons/bs"
 import { FaGraduationCap } from "react-icons/fa"
 import { NavLink } from "react-router-dom"
@@ -35,6 +35,16 @@ function Sidebar() {
         <NavLink to={"/venue"} className="nav-links-common">
           <BsBuildingAdd />
           <p>Venue</p>
+        </NavLink>
+
+        <NavLink to={"/admins"} className="nav-links-common">
+          <MdAdminPanelSettings />
+          <p>Admins</p>
+        </NavLink>
+
+        <NavLink to={"/login"} className="nav-links-common">
+          <MdAdminPanelSettings />
+          <p>login</p>
         </NavLink>
       </div>
     </div>

@@ -1,18 +1,18 @@
-export function epochToDate(epochTime) {
-  const date = new Date(epochTime * 1000) // Convert to milliseconds
-  const year = date.getFullYear().toString().slice(-2) // Get the last two digits of the year
-  const month = ("0" + (date.getMonth() + 1)).slice(-2)
-  const day = ("0" + date.getDate()).slice(-2)
-  
+export function epochToTime(epochTime, convertToDate = false) {
+  const date = new Date(epochTime)
   let hours = date.getHours()
   const amPm = hours >= 12 ? "PM" : "AM"
   hours = hours % 12 || 12 // Convert to 12-hour format
   const minutes = ("0" + date.getMinutes()).slice(-2)
-
-  const formattedDate = `${day}-${month}-${year}`
   const formattedTime = `${hours}:${minutes} ${amPm}`
-
-  return `${formattedDate}   ${formattedTime}`
+  if (convertToDate){
+    const year = date.getFullYear().toString().slice(-2) // Get the last two digits of the year
+    const month = ("0" + (date.getMonth() + 1)).slice(-2)
+    const day = ("0" + date.getDate()).slice(-2)
+    const formattedDate = `${day}-${month}-${year}`
+    return `${formattedDate} ${formattedTime}`
+  }
+  return `${formattedTime}`
 }
 
 

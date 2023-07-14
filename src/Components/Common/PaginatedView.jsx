@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate"
 import "./PaginatedView.css"
 
 export default function PaginatedView({
-  itemsPerPage = 8,
+  itemsPerPage = 10,
   itemContainerClassName = "",
   children,
 }) {

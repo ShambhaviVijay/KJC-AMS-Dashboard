@@ -2,11 +2,10 @@ import "./EventCard.css"
 import EventDefaultBG from "../../../assets/event-default.png"
 import Button from "../../Common/Button"
 import { useNavigate } from "react-router-dom"
-import { epochToDate } from "../../../utils"
+import { epochToTime } from "../../../utils"
 
 function EventCard({ data }) {
   const navigate = useNavigate()
-
   return (
     <div className="card-main-container">
       <div className="img-container">
@@ -22,18 +21,18 @@ function EventCard({ data }) {
         </div>
 
         <div className="info-common venue">
-          <p>Venue</p>
-          <p>{data.venue}</p>
+          <p>Date</p>
+          <p>{data.eventDate}</p>
         </div>
 
         <div className="info-common time">
           <p>Starts At</p>
-          <p>{epochToDate(data.startTime)}</p>
+          <p>{epochToTime(data.startTime)}</p>
         </div>
 
         <div className="info-common time">
           <p>Ends At</p>
-          <p>{epochToDate(data.endTime)}</p>
+          <p>{epochToTime(data.endTime)}</p>
         </div>
 
         <Button

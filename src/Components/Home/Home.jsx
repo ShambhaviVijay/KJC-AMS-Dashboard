@@ -2,27 +2,45 @@ import PageControlsLeft from "../Common/PageControlsLeft"
 import DropDown from "../Common/DropDown"
 import EventCard from "./EventCard/EventCard"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate,useLocation } from "react-router-dom"
 import PaginatedView from "../Common/PaginatedView"
 import { sortFilter, showFilter } from "../../utils"
-
 import "./Home.css"
 
 const Home = ({events}) => {
-  // code for searching data
-  const [query, setQuery] = useState("")
-  const searchData = (searchData) => setQuery(searchData)
-
   // code for navigating to add events page
   const navigator = useNavigate()
   const addEventsPage = () => navigator("/addNewEvent")
   
+  //takes data of the new/old Event
+  const location = useLocation()
+  const changedEvent = location.state
+  if (changedEvent != null) {
+    //make a list of event Ids
+    const eventNameList = events.map(event => event.eventName)
+    //if the changed event is of type string then delete data
+    if (typeof(changedEvent) == "string") {
+      if (eventNameList.includes(changedEvent)) events.splice(eventNameList.indexOf(changedEvent),1)
+    } //if the changed event is of type object and is part of eventId list then update event
+    else if (eventNameList.includes(changedEvent.eventName)) {
+      events[eventNameList.indexOf(changedEvent.eventName)] = changedEvent
+    } //if the changed event if of type object and is not part of eventId list then add event
+    else {
+      events.push(changedEvent)
+    }
+    // window.history.replaceState({}, document.title)
+    navigator("/home", { state: null })
+  }
+  
+  // code for searching data
+  const [query, setQuery] = useState("")
+  const searchData = (searchData) => setQuery(searchData)
   const keys = ["eventName", "organizer", "venue"]
 
   //code for Show By Dropdown
   const showByOptions = [
     { name: "All", value: "all" },
-    { name: "Upcoming", value: "upcoming" },
+    { name: "Upcoming/Ongoing", value: "upcoming" },
     { name: "Past Events", value: "past-events" },
   ]
   const [showBy, setShowBy] = useState(showByOptions[0].value)
@@ -93,7 +111,7 @@ const Home = ({events}) => {
       {/* End Page Controls */}
 
       {/* Wrap data to be displayed within paginated view */}
-      <PaginatedView itemsPerPage={8} itemContainerClassName="events-container">
+      <PaginatedView itemsPerPage={10} itemContainerClassName="events-container">
         {/* Use search function to return filtered data  */}
         {search(events).map((event) => (
           <EventCard key={event.id} data={event} />
