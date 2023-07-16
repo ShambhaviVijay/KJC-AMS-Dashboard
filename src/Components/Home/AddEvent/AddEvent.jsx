@@ -18,6 +18,7 @@ function AddEvent({
   const [creatingEvent, setcreatingEvent] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null)
   const [eventData, setEventData] = useState({
+    id: "",
     backDrop: "",
     openForAll: false,
     eventName: "",
@@ -33,11 +34,13 @@ function AddEvent({
   const eventNameList = events.map((event) => (event.eventName))
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     //field checks
-    if (!selectedFile) {
-      toast.error('Please upload a Back Drop for the event')
-      return
-    } else if (Boolean(participants.length) == eventData.openForAll) {
+    // if (!selectedFile) {
+    //   toast.error('Please upload a Back Drop for the event')
+    //   return
+    // } else
+    if (Boolean(participants.length) == eventData.openForAll) {
       toast.error('Please upload Participants list as the event is not Open for All')
       return
     } else if (eventNameList.includes(eventData.eventName) || eventData.eventName == "") {
@@ -54,16 +57,14 @@ function AddEvent({
       return
     }
     setcreatingEvent(true)
-    const downloadURL = await uploadFile(selectedFile, "BackDrop")
+    const downloadURL = selectedFile ? await uploadFile(selectedFile, "BackDrop") : ""
     eventData.backDrop = downloadURL
-    const participantsDetail = {isPresent: false, takenBy: "", takenTime: null}
+    const participantsDetail = {isPresent: false, takenBy: "", takenTime: 0}
     try {
-      e.preventDefault()
-      const ref = await createDocument("/events", eventData)
-      participants.forEach((participant) => {
-        createDocumentWithCustomId("events/"+ref.id+"/Participants", participant.id, participantsDetail)
-      });
-      toast.success("Event created ")
+      eventData.id = await createDocument("/events", eventData)
+      console.log(eventData)
+      Object.keys(participants).length > 0 && participants.forEach((participant) => createDocumentWithCustomId("events/"+eventData.id+"/Participants", participant.id, participantsDetail))
+      toast.success("Event created")
       setcreatingEvent(false)
       navigate("/home", { state: eventData })
     } catch (err) {

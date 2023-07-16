@@ -3,8 +3,8 @@
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: column;
 }
@@ -41,3 +41,55 @@
   border-left: 0;
   border-right: 0;
 }/*# sourceMappingURL=Sidebar.css.map */
+
+.button-div{
+  justify-items: center;
+  width: 100%;
+  /* margin-right: 5rem; */
+}
+
+.admin-info{
+  flex-direction: column;
+    display: flex;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.admin-card{
+  display: flex;
+  height:12rem;
+  width: 12rem;
+  background-color: white;
+  border-radius: 6rem;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+.admin-details{
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.admin-details >p{
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+}
+.admin-card > p{
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.button-div{
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links-logout{
+  margin-bottom: 1.5rem;
+  padding: 0 2rem;
+  text-decoration: none;
+}

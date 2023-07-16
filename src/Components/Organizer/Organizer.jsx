@@ -26,15 +26,18 @@ function Organizer({
   const handleShowDpt = () => {
     setShow(true);
     setPage('Department')
-    setQueryForDepartment("")
   }
 
   const handleShowClub = () => {
     setShow(true);
     setPage('Club')
+    
+  }
+  const handleClose = () => {
+    setShow(false);
+    setQueryForDepartment("")
     setQueryForClub("")
   }
-  const handleClose = () => setShow(false);
 
   const disableAddDpt = searchDepartment(departments).length > 0
   const disableAddClub = searchClub(clubs).length > 0
@@ -70,6 +73,7 @@ function Organizer({
         { show &&
           <DetailsModal
             modalShow={show}
+            data={page==="Club"?[queryForClub]:[queryForDepartment]}
             closeModel={handleClose}
             action={'Add'}
             page={page}

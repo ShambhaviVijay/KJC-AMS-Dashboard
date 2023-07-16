@@ -68,20 +68,20 @@ const ViewEvent = ({
     try {
       if (newBackDrop!=null) {
         newEventData.backDrop = await uploadFile(newBackDrop, "BackDrop")
-        await deleteFile(eventData.backDrop)
+        eventData.backDrop != "" && await deleteFile(eventData.backDrop)
       }
       if (JSON.stringify(eventData)!=JSON.stringify(newEventData)) {
         participantsList.length===0 && setParticipantsList(await readDocuments("events/"+eventData.id+"/Participants"))
         await updateDocument("events", eventData.id, newEventData)
       }
       if (participantsList.length!=0) {
-        const participantsDetail = {isPresent: false, takenBy: "", takenTime: null}
+        const participantsDetail = {isPresent: false, takenBy: "", takenTime: 0}
         participantsList.forEach((participant) => createDocumentWithCustomId("events/"+eventData.id+"/Participants", participant.id, participantsDetail));
       }
       navigator("/home", { state: newEventData })
       toast.success(eventData.eventName+" successfully updated")
     } catch (e) {
-      toast.error("Error while Updating" +e)
+      toast.error("Error while Updating " + e)
     }
     setUpdatingEvent(false)
   }
@@ -94,12 +94,12 @@ const ViewEvent = ({
   const downloadCSV = async () => {
     const participants = await readDocuments("events/"+eventData.id+"/Participants")
     const participantsList = participants.map(obj => [
-        obj.participantID,
-        obj.isPresent,
+        obj.id,
+        obj.isPresent ? "Present" : "Absent",
         obj.takenBy,
-        JSON.stringify(epochToTime(obj.takenTime, true)),
+        obj.takenTime ? JSON.stringify(epochToTime(obj.takenTime, true)) : "",
     ])
-    participantsList.unshift(["participantID","isPresent","takenBy","takenTime"])
+    participantsList.unshift(["Participant ID","Is Present","Taken By","Taken Time"])
     const csvFile = Papa.unparse(participantsList,{
       header:true,
       delimiter:",",

@@ -27,7 +27,7 @@
 .card-container p{
     /* flex:2; */
     width: 12vw;
-    margin-Bottom:0px; 
+    margin-bottom:0px; 
     overflow: hidden;
     white-space: nowrap;
     padding-top:8px;

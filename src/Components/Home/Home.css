@@ -18,7 +18,6 @@
 .pageControls .right-controls{
     display: flex;
     margin: 3.5px;
-    flex-wrap: wrap;
     width:max-content;
 }
 

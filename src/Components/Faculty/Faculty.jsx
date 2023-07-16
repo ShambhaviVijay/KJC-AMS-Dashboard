@@ -40,6 +40,7 @@ function Faculty ({
               row.club = row.club.split(',')
               await createDocumentWithCustomId("faculty", row.id, {club: row.club, department: row.department, facultyName: row.facultyName});
             })
+            fetchFaculties()
           }
         })
       }
@@ -49,7 +50,14 @@ function Faculty ({
 
   //handle CSV file download
   const DownloadFormat = async () => {
-    const headers = [keys,["Please Maintain the Header Format"] ,["Faculty's Name","Faculty's Email Id","Faculty's Department(Match from the Departments List)",`"Faculty's Clubs"(Match from the Clubs List and put within Quotes and commas to store multiple Clubs)`], ["Example Format:"], ["Rohan Agarwal","21bcac55@kristujayanti.com","Computer Science(UG)",`"EIC,CSA"`]]
+    const headers = [["Please Maintain the Header Format"],
+                    ["Faculty's Name","Faculty's Email Id","Faculty's Department(Match from the Departments List)",'"FacultyClub1, FacultyClub2,..."(Match from the Clubs List and put within Quotes and commas to store multiple Clubs)'],
+                    ["Example Format:"],
+                    [],
+                    ["Delete the above GuideLines"],
+                    [],
+                    keys, 
+                    ["Rohan Agarwal","21bcac55@kristujayanti.com","Computer Science(UG)",'"Entrepreneurship Incubation Center,Literary And Cultural Association"']]
     const csvFile = Papa.unparse(headers,{
       header:true,
       delimiter:",",
@@ -118,7 +126,7 @@ function Faculty ({
           {search(faculties).map((faculty) => 
             <li key={faculty.id}>
               <TableCard 
-                data={[faculty.facultyName, faculty.id, faculty.department, faculty.club.length?(faculty.club).toString():"None"]}
+                data={[faculty.facultyName, faculty.id, faculty.department, faculty.club? faculty.club.toString():"None"]}
                 id ={faculty.id}
                 page={'Faculty'} 
                 refresh={fetchFaculties}

@@ -106,7 +106,7 @@ export default function EventInfo({
   }
 
   const downloadTemplate = async () => {
-    const headers = [["participantId"],["The field should only contain participants Id"],["21bcac55"],["21bcac55"],["21bcac55"],["21bcac55"]]
+    const headers = [["id"],["The field should only contain participants Id"],["21bcac55"],["21bcac55"],["21bcac55"],["21bcac55"]]
     const csvFile = Papa.unparse(headers,{
       header:true,
       delimiter:",",
@@ -152,7 +152,7 @@ export default function EventInfo({
             checked={isOpenforAll}
             name="openForAll"
             label="Open For All?"
-            disabled={allowEdit}
+            disabled={allowEdit ? true : (eventData && eventData.startTime < Date.now())? eventData.openForAll : false}
             onChange={changeFileUploadState}
             type="checkbox"
             style={{marginLeft:"1rem"}}

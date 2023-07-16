@@ -1,3 +1,8 @@
+# Deployments
+
+#### [Production](https://ams-dashboard.vercel.app/)
+#### [Development](https://ams-dashboard-git-dev-mys7erio.vercel.app/)
+
 # KJC-AMS
 
 This dashboard is the admin side for the attendance management system for KJC

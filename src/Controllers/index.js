@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, setDoc, getDocs, updateDoc, doc, deleteDoc , getDoc , writeBatch, query, where } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-// ​​import {GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut} from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword,updateProfile } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDiGHXxdZmxp_XgcZhGK6H4dqtzpzFIXYk",
@@ -16,21 +16,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
-// const auth = getAuth(app)
+const auth = getAuth(app)
+// const admin = require('firebase-admin');
 
-// async function createUser(email, password){
-//     await createUserWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//         console.log(userCredential)
-//     })
-//     .catch((error) => {
-//         console.log(error)
-//     })
+// const serviceAccount = require('./attendance-app-729e7-firebase-adminsdk-pakwq-a15170240a.json');
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   // Optional: Add any additional configuration options here
+// });
+async function createUser(email, password,name, editor){
+    await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+  
+      // Update the user's profile
+      updateProfile(user, {
+        displayName: name, // Set the display name
+        editor: editor, // Set a custom key-value pair
+      })
+        .then(() => {
+          console.log(userCredential);
+        })
+        .catch((error) => {
+          console.error('Error updating user profile:', error);
+        });
+    })
+    .catch((error) => {
+      console.error('Error creating user:', error);
+    });
+}
+
+// async function addAdmin(email, password, name){
+//     admin.auth().createUser({
+//         email: email,
+//         password: password,
+//         displayName: name,
+//       })
+//         .then((userRecord) => {
+//           console.log('Successfully created new user:', userRecord.uid);
+//         })
+//         .catch((error) => {
+//           console.error('Error creating new user:', error);
+//         });
 // }
-
-// async function loginWithEmailAndPassword(email, password){
-//     return firebase.auth().signInWithEmailAndPassword(email, password);
-//   };
 
 async function createDocument(name,payload) {
     try {
@@ -40,7 +69,6 @@ async function createDocument(name,payload) {
         console.error('Error creating document:', error);
     }
 }
-
 
 async function createDocuments(collectionName, JSONfile) {
     try {
@@ -57,8 +85,9 @@ async function createDocumentWithCustomId(collectionName, customDocumentId, data
     try {
       const docRef = doc(db, collectionName, customDocumentId);
       await setDoc(docRef, data);
+      return "Success"
     } catch (error) {
-      console.error("Error adding document:", error);
+      return (error);
     }
 }
 
@@ -218,6 +247,7 @@ export {
     updateDocumentAndSubCollection,
     getDocRef,
     createDocumentWithCustomId,
-    // createUser,
-    // loginWithEmailAndPassword
+    createUser,
+    // addAdmin,
+    auth,
 }

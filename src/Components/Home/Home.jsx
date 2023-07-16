@@ -72,9 +72,8 @@ const Home = ({events}) => {
         return String(item[key]).toLowerCase().includes(query.toLowerCase())
       })
     })
-    const today = new Date();
-    // Filter the array by first buy time then by a sort-by filter
-    const filteredResults = sortFilter(showFilter(searchResults, showBy, Math.floor(today.getTime()/1000)), sortBy)
+    // Filter the array by first by time then by a sort-by filter
+    const filteredResults = sortFilter(showFilter(searchResults, showBy, Math.floor(Date.now())), sortBy)
     return filteredResults
   }
 
@@ -111,7 +110,7 @@ const Home = ({events}) => {
       {/* End Page Controls */}
 
       {/* Wrap data to be displayed within paginated view */}
-      <PaginatedView itemsPerPage={10} itemContainerClassName="events-container">
+      <PaginatedView itemsPerPage={8} itemContainerClassName="events-container">
         {/* Use search function to return filtered data  */}
         {search(events).map((event) => (
           <EventCard key={event.id} data={event} />

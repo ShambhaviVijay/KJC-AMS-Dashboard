@@ -1,7 +1,7 @@
 import Button from "../Common/Button";
 import { deleteDocument } from '../../Controllers/index';
 
-const DeleteForm = ({page, refresh, closeModel, deleteId, deleteFunction = () => {}}) => {
+const DeleteForm = ({page, refresh, closeModel, deleteId, deleteFunction}) => {
 
     let path;
     switch(page){
@@ -23,10 +23,13 @@ const DeleteForm = ({page, refresh, closeModel, deleteId, deleteFunction = () =>
     }
 
     const deleteDoc = async () => {
+        console.log("yha aay akya")
         await deleteDocument(deleteId, path)
         closeModel()
         refresh(deleteId,"DeletedData")
     }
+
+    console.log(deleteFunction!= null)
 
     return (
         <>

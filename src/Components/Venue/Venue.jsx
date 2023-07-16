@@ -18,7 +18,11 @@ function Venue ({
   //show hide for faculty model
   const [show, setShow] = useState(false);
   const handleShow = () => {
+    console.log(query)
     setShow(true);
+  }
+  const handleClose = () => {
+    setShow(false);
     setQuery("")
   }
   
@@ -32,7 +36,6 @@ function Venue ({
       setVenues(venues => [...venues, {id : newId}])
     }
   }
-  const handleClose = () => setShow(false);
 
   const idList = venues.map((venue) =>(venue.id).toLowerCase())
   return(
@@ -52,6 +55,7 @@ function Venue ({
           { show &&
             <DetailsModal
               modalShow={show}
+              data={[query]}
               closeModel={handleClose}
               action={'Add'}
               page={'Venue'}

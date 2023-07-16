@@ -10,8 +10,9 @@ function EventCard({ data }) {
     <div className="card-main-container">
       <div className="img-container">
         {data.backDrop === null || data.backDrop === "" ? (
-          <img src={EventDefaultBG} alt="Default Card Image" />
-        ) : (
+          // <img src={EventDefaultBG} alt="Default Card Image" />
+          <div className="default-backdrop"><p>{data.eventName}</p></div>
+        ) :(
           <img src={data.backDrop} alt="test image" />
         )}
       </div>

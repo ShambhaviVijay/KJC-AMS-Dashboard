@@ -53,9 +53,13 @@ function FacultyForm ({
     if (validate()) {
       const clubs = selectedClub.map((item) => item.value)
       console.log(clubs)
-      await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs });
+      try {
+        await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs });
+        refresh();
+      } catch (error){
+        console.log(error)
+      }
       closeModel();
-      refresh();
     }
   };
 
@@ -83,8 +87,12 @@ function FacultyForm ({
       valid = false;
       errors.name = 'Name is required';
     }
+    if(!email){
+      valid = false;
+      errors.email = 'Email is required';
+    }
 
-    if (!email) {
+    if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email+emailDomain))) {
       valid = false;
       errors.email = 'Invalid email address';
     }
@@ -154,15 +162,6 @@ function FacultyForm ({
             {validationErrors.department && <span style={{fontSize:"13px", color:"red", }} >{validationErrors.department}</span>}
           </div>
           <div style={{flex:'1', marginLeft:'1rem'}}>
-            {/* <Select
-              id="inputClub"
-              // className='dropdown'
-              placeholder='Select Club'
-              options={clubOptions}
-              styles={{height: "3rem", flex:1 }}
-              value={selectedClub}
-              onChange={handleClub}
-            /> */}
             <Select
               defaultValue={selectedClub}
               placeholder='Select Clubs'

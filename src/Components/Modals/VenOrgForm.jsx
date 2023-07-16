@@ -70,10 +70,10 @@ function VenOrgForm ({
 
     return(
       <>
-        <div style={{flexDirection:"column", display:'flex', width:'700px'}}>
+        <div style={{flexDirection:"column", display:'flex', width:'700px', }}>
           <TextField
             id="inputName"
-            inputStyle={{height: "3rem", flex:'1'}}
+            inputStyle={{height: "3rem", flex:'1', textTransform: 'capitalize'}}
             isRequired={true}
             placeholder='Name'
             value={name}
