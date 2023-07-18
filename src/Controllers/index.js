@@ -64,7 +64,7 @@ async function createUser(email, password,name, editor){
 async function createDocument(name,payload) {
     try {
         const newDocRef = await addDoc(collection(db, name), payload);
-        return newDocRef
+        return newDocRef.id
     } catch (error) {
         console.error('Error creating document:', error);
     }

@@ -66,14 +66,27 @@ export default function EventInfo({
   //handle date for conversion of time into epoch and store date
   const [date, setDate] = useState(eventData?eventData.eventDate:"")
   const handleDate = (e) => {
-    setDate(e.target.value)
     if (e.target.value==""){
       toast.error("Date cannot be empty")
       return
     }
     const { name, value } = e.target
+    setDate(value)
     returnEventInfo((prevData) => ({ ...prevData, [name]: value }))
     returnEventInfo((prevData) => ({ ...prevData, openForAll: isOpenforAll }))
+    // update start and end time when date is changed
+    if (eventData.startTime && eventData.endTime){
+      const startTime = converEpochToTime(eventData.startTime)
+      const endTime = converEpochToTime(eventData.endTime)
+      const [shours, sminutes] = startTime.split(":")
+      const [ehours, eminutes] = endTime.split(":")
+      const startTimestamp = new Date(value)
+      const endTimestamp = new Date(value)
+      startTimestamp.setHours(shours, sminutes, 0, 0)
+      returnEventInfo((prevData) => ({ ...prevData, startTime: startTimestamp.getTime() }))
+      endTimestamp.setHours(ehours, eminutes, 0, 0)
+      returnEventInfo((prevData) => ({ ...prevData, endTime: endTimestamp.getTime() }))
+    }
   }
   //convert time to epoch with the use of date and store time
   const convertTimeToEpoch = (e) => {

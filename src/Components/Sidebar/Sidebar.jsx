@@ -14,7 +14,7 @@ function Sidebar({user, auth, setUser}) {
     await signOut(auth)
     setUser(null)
     localStorage.removeItem('AuthToken')
-    toast.error("error")
+    // toast.error("error")
   }
   return (
     <div className="sidebar-outer-container">

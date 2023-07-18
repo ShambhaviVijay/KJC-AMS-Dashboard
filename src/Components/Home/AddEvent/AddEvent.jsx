@@ -62,16 +62,14 @@ function AddEvent({
     const participantsDetail = {isPresent: false, takenBy: "", takenTime: 0}
     try {
       eventData.id = await createDocument("/events", eventData)
-      console.log(eventData)
       Object.keys(participants).length > 0 && participants.forEach((participant) => createDocumentWithCustomId("events/"+eventData.id+"/Participants", participant.id, participantsDetail))
       toast.success("Event created")
-      setcreatingEvent(false)
       navigate("/home", { state: eventData })
     } catch (err) {
-      setcreatingEvent(false)
       toast.error("error while creating event")
       console.log(err)
     }
+    setcreatingEvent(false)
   }
   return (
     <div className="add-event-main">

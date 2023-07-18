@@ -28,7 +28,6 @@ const Home = ({events}) => {
     else {
       events.push(changedEvent)
     }
-    // window.history.replaceState({}, document.title)
     navigator("/home", { state: null })
   }
   
