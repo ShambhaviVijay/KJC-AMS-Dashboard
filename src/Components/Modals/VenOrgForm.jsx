@@ -15,7 +15,6 @@ function VenOrgForm ({
     const [name, setName] = useState(data[0]);
     const [validationErrors, setValidationErrors] = useState();
 
-    console.log(data[0])
     const handleName = (event) => {
       setName(event.target.value);
     };
@@ -38,17 +37,17 @@ function VenOrgForm ({
     const editDocument = async () => {
       if (validate()) {
         await deleteDocument(data[0], path)
-        await createDocumentWithCustomId(path, name,{});
+        await createDocumentWithCustomId(path, capitalizeWords(name),{});
         closeModel();
-        refresh(data[0], name);
+        refresh(data[0], capitalizeWords(name));
       }
     }
 
     const addDocument = async () => {
       if (validate()) {
-        await createDocumentWithCustomId(path, (name), {});
+        await createDocumentWithCustomId(path, (capitalizeWords(name)), {});
         closeModel();
-        refresh("NewData", name);
+        refresh("NewData", (capitalizeWords(name)));
       }
     };
 
@@ -58,15 +57,17 @@ function VenOrgForm ({
       if (!name) {
         valid = false;
         setValidationErrors(page + ' name is required');
-      }else if(idList.includes(name.toLowerCase()) && (name != data[0])){
+      }else if(idList.includes(name.toLowerCase()) && (name.toLowerCase() != data[0].toLowerCase())){
         valid = false;
         setValidationErrors('This ' + page + ' already exists');
       }
-      console.log(valid)
-      console.log(validationErrors)
-
       return valid;
     }
+
+    const capitalizeWords = (str) => {
+      return str.replace(/\b\w/g, (char) => char.toUpperCase());
+    }
+    
 
     return(
       <>

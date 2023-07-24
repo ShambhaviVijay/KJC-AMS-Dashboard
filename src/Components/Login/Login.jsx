@@ -25,14 +25,13 @@ export default function Login({setUser}){
     })
     .catch((error)=>{
       toast.error("error")
-      console.log(error.message)
     })
   }
 
   return(
   <div className="login-main">
     <form className='login-card' onSubmit={(e)=>loginUser(e)} >
-      <h2>AMS Web Portal</h2>
+      <h2>KJAMS Web Portal</h2>
       <div style={{width:'100%'}}>
         <TextField
           name="email"

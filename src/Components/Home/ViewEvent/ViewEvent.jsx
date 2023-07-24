@@ -49,7 +49,6 @@ const ViewEvent = ({
   const handleClose = () => setShow(false);
   
   const handleDelete = async () => {
-    console.log('heloo world')
     // open Confirmation dialog box
     setDeletingEvent(true)
     try {

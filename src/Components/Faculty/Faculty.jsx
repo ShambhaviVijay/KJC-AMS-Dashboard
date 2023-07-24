@@ -37,7 +37,10 @@ function Faculty ({
           header: true,
           complete: (result) =>  {
             result.data.forEach(async (row) => {
-              row.club = row.club.split(',')
+              row.club = row.club == null?row.club:
+              row.club.includes(',')?
+              row.club.split(','):row.club
+              console.log(row.club)
               await createDocumentWithCustomId("faculty", row.id, {club: row.club, department: row.department, facultyName: row.facultyName});
             })
             fetchFaculties()
@@ -74,7 +77,9 @@ function Faculty ({
   //show hide for faculty model
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+  }
 
   //faculty Id List for faculty model
   const idList = faculties.map((faculty) =>(faculty.id.split('@')[0]))

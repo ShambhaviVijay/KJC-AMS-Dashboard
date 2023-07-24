@@ -12,6 +12,7 @@ export default function EventCoordinatorsList({
 
     const [selected, setSelected] = useState([])
     const [unSelected, setUnSelected] = useState([])
+    const [selectedOptions, setSelectedOptions] = useState([]);
     const [query, setQuery] = useState("")
     const searchData = (searchData) => setQuery(searchData);
     const keys = ["facultyName", "id", "department", "club"]
@@ -32,18 +33,20 @@ export default function EventCoordinatorsList({
       },[faculties])
 
     const selectIt = (faculty) =>{
-        if(!selected.includes(faculty)){
-        const newUnselected = unSelected.filter((item) => item.id !== faculty.id);
-        setUnSelected(newUnselected)
-        setSelected(oldSelect => [...oldSelect,faculty])
-        addCoord(faculty.id)
-        if (componentRef.current) {
-            componentRef.current.scrollTo({
-              top: 0,
-              behavior: 'smooth',
-            });
+        // if(!selected.includes(faculty)){
+        // const newUnselected = unSelected.filter((item) => item.id !== faculty.id);
+        // setUnSelected(newUnselected)
+        // setSelected(oldSelect => [...oldSelect,faculty])
+        // addCoord(faculty.id)
+        // }
+
+        if (selectedOptions.includes(faculty)) {
+            setSelectedOptions(selectedOptions.filter((item) => item !== faculty));
+            deleteCord(faculty.id)
+          } else {
+            setSelectedOptions([...selectedOptions, faculty]);
+            addCoord(faculty.id)
           }
-        }
     }
 
     const deSelectIt = (faculty) =>{
@@ -51,6 +54,16 @@ export default function EventCoordinatorsList({
         setSelected(newSelected)
         setUnSelected(oldUnselected => [...oldUnselected,faculty])
         deleteCord(faculty.id)
+    }
+
+    const reorder = () => {
+        selectedOptions.map((faculty) => {
+            if(!selected.includes(faculty)){
+                setSelected(oldSelect => [...oldSelect,faculty])
+            }
+        })
+        const newUnselected = faculties.filter((item) => !(selectedCoord.includes(item.id)));
+        setUnSelected(newUnselected)
     }
     
     return(
@@ -64,7 +77,7 @@ export default function EventCoordinatorsList({
                 // value={valueSearchBox}
                 />
             </Tooltip>
-            <div className="table-coordinator" ref={componentRef} >
+            <div className="table-coordinator" ref={componentRef}>
                 {(selected != null) && search(selected).map((faculty) =>
                 <div className="card-coordinator" 
                 key={faculty.id}
@@ -88,10 +101,10 @@ export default function EventCoordinatorsList({
                     <p>{faculty.id}</p>
                     <input className="check-coordinator"
                         type="checkbox"
-                        checked={false}
-                        // onChange={(e) => selectIt(faculty)}
-                        readOnly={true}
+                        checked={selectedOptions.includes(faculty)}
+                        // onChange={() => handleCheckboxChange(faculty)}
                         disabled={disable}
+                        // onBlur={reset}
                         style={{zIndex:'10'}}
                     />
                 </div>)}

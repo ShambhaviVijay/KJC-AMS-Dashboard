@@ -23,13 +23,10 @@ const DeleteForm = ({page, refresh, closeModel, deleteId, deleteFunction}) => {
     }
 
     const deleteDoc = async () => {
-        console.log("yha aay akya")
         await deleteDocument(deleteId, path)
         closeModel()
         refresh(deleteId,"DeletedData")
     }
-
-    console.log(deleteFunction!= null)
 
     return (
         <>

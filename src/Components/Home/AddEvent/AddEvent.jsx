@@ -67,7 +67,6 @@ function AddEvent({
       navigate("/home", { state: eventData })
     } catch (err) {
       toast.error("error while creating event")
-      console.log(err)
     }
     setcreatingEvent(false)
   }

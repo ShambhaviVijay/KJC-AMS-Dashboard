@@ -18,7 +18,6 @@ function Venue ({
   //show hide for faculty model
   const [show, setShow] = useState(false);
   const handleShow = () => {
-    console.log(query)
     setShow(true);
   }
   const handleClose = () => {

@@ -52,12 +52,10 @@ function FacultyForm ({
   const addFaculty = async () => {
     if (validate()) {
       const clubs = selectedClub.map((item) => item.value)
-      console.log(clubs)
       try {
         await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs });
         refresh();
       } catch (error){
-        console.log(error)
       }
       closeModel();
     }
@@ -66,7 +64,6 @@ function FacultyForm ({
   const editFaculty = async () => {
     if (validate()) {
       const clubs = selectedClub.map((item) => item.value)
-      console.log(clubs)
       if(email != data[1]){
         await deleteDocument(data[1], path)
         await createDocumentWithCustomId(path, (email+emailDomain), { facultyName: name, department: String(selectedDpt.value), club: clubs});
